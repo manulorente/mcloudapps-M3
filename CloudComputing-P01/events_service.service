@@ -1,0 +1,14 @@
+[Unit]
+ Description=events_service
+ After=network.target
+[Service]
+ Type = forking
+ User=root
+ Restart=always
+ RestartSec=1
+ SuccessExitStatus=143 
+ ExecStart = /usr/local/bin/events_service.sh start
+ ExecStop = /usr/local/bin/events_service.sh stop
+ ExecReload = /usr/local/bin/events_service.sh reload
+[Install]
+ WantedBy=multi-user.target
