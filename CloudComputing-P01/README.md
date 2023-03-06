@@ -4,7 +4,8 @@
 
 - Bucket name: mca-events
 - Region: us-east-1
-- ACLs enabled
+- ACLs enabled + Object writer
+- Allow all public access
 
 ## 2 - Create EC2 instance
 
@@ -59,7 +60,7 @@ Local
 EC2
 
 ```sh
-export RDS_DNS=eventsdb.ckbzargdvke9.us-east-1.rds.amazonaws.com
+export RDS_DNS=events-db.ckbzargdvke9.us-east-1.rds.amazonaws.com
 export RDS_DATABASE=events
 export RDS_USER=root
 export RDS_PASS=12345678

@@ -1,0 +1,194 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "CloudComputing-P2-CloudFormation"
+
+Parameters:
+  S3BucketName:
+    Description: S3 bucket name
+    Type: String
+    Default: mca-events
+
+  DBPassword:
+    Description: RDS MySQL database password
+    Type: String
+    NoEcho: true
+    MinLength: 8
+
+  KeyName:
+    Description: Key pair to use in EC2 instance
+    Type: AWS::EC2::KeyPair::KeyName
+
+  AmiId:
+    Description: The ami to use in us-east-1 (it must be an AMI on the current region and must be Ubuntu 22.04)
+    Type: AWS::EC2::Image::Id
+    Default: ami-0557a15b87f6559cf
+
+  JarURL:
+    Description: URL to download the executable jar file
+    Type: String
+    Default: https://s3.amazonaws.com/practica-2.cloud.michel/practica_1_cloud_ordinaria.jar 
+
+Resources: 
+  s3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Ref S3BucketName
+
+  BucketPolicy:
+    Type: "AWS::IAM::Policy"
+    DependsOn: IamRole
+    Properties:
+      PolicyName: "BucketAccessPolicy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - "s3:PutObject"
+              - "s3:GetObject"
+              - "s3:PutObjectAcl"
+            Resource:
+              !Join
+              - ''
+              - - !GetAtt s3Bucket.Arn
+                - '/*'
+      Roles:
+        - !Ref IamRole 
+
+  IamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: "Full access to S3"
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: S3FullAccess
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: 's3:*'
+                Resource:
+                  !Join
+                  - ''
+                  - - !GetAtt s3Bucket.Arn
+                    - '/*'
+      ManagedPolicyArns: 
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+  IamInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - !Ref IamRole 
+
+  ec2SecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupName: Cloud-Computing-P2
+        GroupDescription: "SG for P2 ports 22 & 443 for ssh and app"
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: '22'
+            ToPort: '22'
+            CidrIp: 0.0.0.0/0
+          - IpProtocol: tcp
+            FromPort: '443'
+            ToPort: '443'
+            CidrIp: 0.0.0.0/0
+
+  rdsSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: "SG for MySQL RDS"
+        GroupName: Cloud-Computing-P2-RDS
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: '3306'
+            ToPort: '3306'
+            SourceSecurityGroupName: !Ref ec2SecurityGroup # Sólo permite acceso a las instancias de este grupo
+
+  rdsDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: "db.t2.micro"
+      AllocatedStorage: 10
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      DBInstanceIdentifier: events-db
+      DBName: events
+      Engine: mysql
+      EngineVersion: 8.0
+      MasterUsername: root
+      MasterUserPassword: !Ref DBPassword
+      MultiAZ: false
+      PubliclyAccessible: false
+      StorageEncrypted: false
+      VPCSecurityGroups:
+        - !GetAtt rdsSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: cf-p2-rds
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    DependsOn: rdsDBInstance
+    Properties:
+      KeyName: !Ref KeyName
+      ImageId: !Ref AmiId
+      InstanceType: "t2.micro"
+      IamInstanceProfile: !Ref IamInstanceProfile
+      Monitoring: false
+      SecurityGroups:
+        - !Ref ec2SecurityGroup
+      UserData: 
+        Fn::Base64: 
+          Fn::Sub: 
+            - |
+              #!/bin/bash -ex
+              apt-get update && apt-get install -y openjdk-17-jre-headless
+              wget ${JarUrl}
+              chmod +x ${JarName}
+              java -jar -Dspring.profiles.active=${SpringProfilesActive} ${JarName} \
+                  --server.port=${SpringServerPort} \
+                  --cloud.aws.rds.springaws.password=${RdsPass} \
+                  --spring.datasource.url=jdbc:mysql://${RdsEndpoint}/${RdsSchema} \
+                  --spring.datasource.username=${RdsUser} \
+                  --spring.datasource.password=${RdsPass} \
+                  --amazon.s3.bucket-name=${BucketName} \
+                  --amazon.s3.endpoint=https://s3.amazonaws.com/${BucketName}/ \
+                  --amazon.s3.region=${Region}
+            - {
+              SpringProfilesActive: production,
+              SpringServerPort: 443,
+              RdsSchema: events,
+              RdsEndpoint: !GetAtt rdsDBInstance.Endpoint.Address,
+              RdsUser: root,
+              RdsPass: !Ref DBPassword,
+              BucketName: !Ref S3BucketName,
+              Region: us-east-1,
+              JarUrl: !Ref JarURL,
+              JarName: practica_1_cloud_ordinaria.jar
+            }
+      Tags:
+        - Key: Name
+          Value: Cloud-Computing-P2
+
+Outputs:
+  WebSiteURL:
+    Value:
+      !Join
+        - ''
+        - - "https://"
+          - !GetAtt EC2Instance.PublicDnsName
+          - ":443"
+          - "/api/events/"
+    Description: "Cloud Computing P2 - Adding a new event"
