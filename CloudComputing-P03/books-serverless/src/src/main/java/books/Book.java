@@ -2,10 +2,11 @@ package books;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Book {
 
-    private String bookId;
+    private Long id;
     private String title;
     private String summary;
     private String author;
@@ -17,8 +18,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(String bookId, String title, String summary, String author, String publisher, String date) {
-        this.bookId = bookId;
+    public Book(Long id, String title, String summary, String author, String publisher, String date) {
+        this.id = id;
         this.title = title;
         this.summary = summary;
         this.author = author;
@@ -27,12 +28,12 @@ public class Book {
         this.reviews = new ArrayList<>();
     }
 
-    public String getBookId() {
-        return this.bookId;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -81,5 +82,34 @@ public class Book {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }    
+    }
+    
+    @Override
+    public String toString() {
+        return "Book{" +
+            " id='" + getId() + '\'' +
+            ", title='" + getTitle() + '\'' +
+            ", summary='" + getSummary() + '\'' +
+            ", author='" + getAuthor() + '\'' +
+            ", publisher='" + getPublisher() + '\'' +
+            ", date='" + getDate() + '\'' +
+            ", reviews='" + getReviews() + '\'' +
+            "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Book)) {
+            return false;
+        }
+        Book book = (Book) o;
+        return id.equals(book.id) && title.equals(book.title) && summary.equals(book.summary) && author.equals(book.author) && publisher.equals(book.publisher) && date.equals(book.date) && reviews.equals(book.reviews);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, summary, author, publisher, date, reviews);
+    }
 }

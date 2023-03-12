@@ -15,14 +15,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Handler for requests to Lambda function.
  */
-public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class GetAllBooks implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private final BookRepository bookRepository = new BookRepository();
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
-        
-        List<Book> books = bookRepository.getAllBooks();
-        
+                
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
@@ -30,12 +28,12 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            String output = mapper.writeValueAsString(books);
+
+            List<Book> books = bookRepository.getAllBooks();
 
             return response
                     .withStatusCode(200)
-                    .withBody(output);
+                    .withBody(new ObjectMapper().writeValueAsString(books));
         } catch (JsonProcessingException e) {
             return response
                     .withBody("{error: " + e.getMessage() + "}")
