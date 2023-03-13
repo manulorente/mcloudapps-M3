@@ -27,18 +27,14 @@ public class UpdateBook implements RequestHandler<APIGatewayProxyRequestEvent, A
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
         try {
-            Long bookId = input.getPathParameters().get("id") != null ? Long.parseLong(input.getPathParameters().get("id")) : null;
-            Book book = bookRepository.getBookById(bookId);
-            if (book == null) {
+            if (bookRepository.updateBook(input.getPathParameters().get("id"), new ObjectMapper().readValue(input.getBody(), Book.class))) {
                 return response
-                        .withBody("{error: Book not found}")
-                        .withStatusCode(404);
+                        .withBody("{message: Book updated successfully}")
+                        .withStatusCode(200);
             }
-            Book newBook = new ObjectMapper().readValue(input.getBody(), Book.class);
-            bookRepository.updateBook(book, newBook);
             return response
-                    .withBody(new ObjectMapper().writeValueAsString(bookRepository.getAllBooks()))
-                    .withStatusCode(200);
+                    .withBody("{error: Book not found}")
+                    .withStatusCode(404);
         } catch (JsonProcessingException e) {
             return response
                     .withBody("{error: " + e.getMessage() + "}")

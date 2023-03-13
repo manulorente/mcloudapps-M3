@@ -30,6 +30,9 @@ Resources:
           Properties:
             Path: /api/v1/books
             Method: GET
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable      
   getBookById:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -48,6 +51,9 @@ Resources:
           Properties:
             Path: /api/v1/books/{id}
             Method: GET
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable  
   createBook:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -66,6 +72,9 @@ Resources:
           Properties:
             Path: /api/v1/books
             Method: POST
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable              
   deleteBook:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -84,6 +93,9 @@ Resources:
           Properties:
             Path: /api/v1/books/{id}
             Method: DELETE
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable              
   updateBook:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -102,6 +114,9 @@ Resources:
           Properties:
             Path: /api/v1/books/{id}
             Method: PUT
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable              
   getAllReviews:
       Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
       Properties:
@@ -120,6 +135,9 @@ Resources:
             Properties:
               Path: /api/v1/reviews
               Method: GET
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: !Ref ReviewsTable                 
   getReviewById:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -138,6 +156,9 @@ Resources:
           Properties:
             Path: /api/v1/reviews/{id}
             Method: GET
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ReviewsTable               
   createReview:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -156,6 +177,11 @@ Resources:
           Properties:
             Path: /api/v1/reviews
             Method: POST
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ReviewsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable
   deleteReview:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -174,6 +200,9 @@ Resources:
           Properties:
             Path: /api/v1/reviews/{id}
             Method: DELETE
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ReviewsTable               
   updateReview:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -191,7 +220,40 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /api/v1/reviews/{id}
-            Method: PUT            
+            Method: PUT    
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ReviewsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BooksTable
+
+  BooksTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: books
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  ReviewsTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: reviews
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

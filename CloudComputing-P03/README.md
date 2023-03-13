@@ -7,6 +7,7 @@ AWS user profile must grant below permission policies:
 - AmazonAPIGatewayAdministrator
 - AmazonEC2FullAccess
 - AmazonS3FullAccess
+- AmazonDynamoDBFullAcess
 - AWSCloudFormationFullAccess
 - AWSLambda_FullAccess
 - IAMFullAccess

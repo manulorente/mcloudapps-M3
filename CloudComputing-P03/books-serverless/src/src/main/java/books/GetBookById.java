@@ -27,8 +27,7 @@ public class GetBookById implements RequestHandler<APIGatewayProxyRequestEvent, 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
         try {
-            Long bookId = input.getPathParameters().get("id") != null ? Long.parseLong(input.getPathParameters().get("id")) : null;
-            Book book = bookRepository.getBookById(bookId);
+            Book book = bookRepository.getBookById(input.getPathParameters().get("id"));
             if (book != null) {
                 return response
                         .withStatusCode(200)

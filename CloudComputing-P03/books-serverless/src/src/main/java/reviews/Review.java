@@ -2,28 +2,28 @@ package reviews;
 
 public class Review {
 
-    private Long id;
+    private String id;
     private String userName;
-    private String text;
-    private int rating;
-    private Long bookId;
+    private String reviewDescription;
+    private String rating;
+    private String bookId;
 
     public Review() {
     }
 
-    public Review(Long id, String userName, String text, int rating, Long bookId) {
+    public Review(String id, String userName, String reviewDescription, String rating, String bookId) {
         this.id = id;
         this.userName = userName;
-        this.text = text;
+        this.reviewDescription = reviewDescription;
         this.rating = rating;
         this.bookId = bookId;
     }
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -35,27 +35,27 @@ public class Review {
         this.userName = userName;
     }
 
-    public String getText() {
-        return this.text;
+    public String getReviewDescription() {
+        return this.reviewDescription;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setReviewDescription(String reviewDescription) {
+        this.reviewDescription = reviewDescription;
     }
 
-    public int getRating() {
+    public String getRating() {
         return this.rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
-    public Long getBookId() {
+    public String getBookId() {
         return this.bookId;
     }
 
-    public void setBookId(Long bookId) {
+    public void setBookId(String bookId) {
         this.bookId = bookId;
     }
 
@@ -64,7 +64,7 @@ public class Review {
         return "Review{" +
             " id='" + getId() + '\'' +
             ", userName='" + getUserName() + '\'' +
-            ", text='" + getText() + '\'' +
+            ", reviewDescription='" + getReviewDescription() + '\'' +
             ", rating='" + getRating() + '\'' +
             ", bookId='" + getBookId() + '\'' +
             "}";

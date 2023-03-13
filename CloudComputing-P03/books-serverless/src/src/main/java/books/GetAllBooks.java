@@ -28,9 +28,12 @@ public class GetAllBooks implements RequestHandler<APIGatewayProxyRequestEvent, 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
         try {
-
             List<Book> books = bookRepository.getAllBooks();
-
+            if (books == null) {
+                return response
+                        .withBody("{message: No books found}")
+                        .withStatusCode(200);
+            }
             return response
                     .withStatusCode(200)
                     .withBody(new ObjectMapper().writeValueAsString(books));

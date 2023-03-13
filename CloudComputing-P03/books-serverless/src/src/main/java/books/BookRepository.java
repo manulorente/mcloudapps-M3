@@ -1,55 +1,96 @@
 package books;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemUtils;
+import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BookRepository {
 
-    private final List<Book> books = new ArrayList<>();
+    private static final String TABLE_NAME = "books";
+    private final Table table;
+    private AmazonDynamoDB dynamoDB;
 
     public BookRepository() {
-        this.books.add(new Book(1L, "The Lord of the Rings", "The Lord of the Rings is an epic high fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien's 1937 fantasy novel The Hobbit, but eventually developed into a much larger work. Written in stages between 1937 and 1949, The Lord of the Rings is one of the best-selling novels ever written, with over 150 million copies sold.", "J. R. R. Tolkien", "Allen & Unwin", "1954-07-29"));
-        this.books.add(new Book(2L, "The Hobbit", "The Hobbit, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in children's literature.", "J. R. R. Tolkien", "Allen & Unwin", "1937-09-21"));
-        this.books.add(new Book(3L, "The Hitchhiker's Guide to the Galaxy", "The Hitchhiker's Guide to the Galaxy is a comedy science fiction series created by Douglas Adams. Originally a radio comedy broadcast on BBC Radio 4 in 1978, it was later adapted to other formats, including stage shows, novels, comic books, a 1981 TV series, a 1984 video game, and 2005 feature film.", "Douglas Adams", "Pan Books", "1979-10-12"));
-        this.books.add(new Book(4L, "The Great Gatsby", "The Great Gatsby is a 1925 novel written by American author F. Scott Fitzgerald that follows a cast of characters living in the fictional town of West Egg on prosperous Long Island in the summer of 1922. The story primarily concerns the young and mysterious millionaire Jay Gatsby and his quixotic passion and obsession with the beautiful former debutante Daisy Buchanan.", "F. Scott Fitzgerald", "Charles Scribner's Sons", "1925-04-10"));
-        this.books.add(new Book(5L, "The Catcher in the Rye", "The Catcher in the Rye is a 1951 novel by J. D. Salinger. A classic novel originally published for adults, it has since become popular with adolescent readers for its themes of teenage angst and alienation. It has been translated into almost all of the world's major languages. Around 1 million copies are sold each year with total sales of more than 65 million books.", "J. D. Salinger", "Little, Brown and Company", "1951-07-16"));
-    }
-
-    public Long getNextId() {
-        return this.books.stream().mapToLong(book -> book.getId()).max().orElse(0) + 1;
+        dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
+        table = new DynamoDB(dynamoDB).getTable(TABLE_NAME);
     }
 
     public List<Book> getAllBooks() {
-        return this.books;
-    }
-
-    public Book getBookById(Long id) {
-        for (Book book : this.books) {
-            if (book.getId().equals(id)) {
-                return book;
-            }
+        ScanRequest scanRequest = new ScanRequest()
+                .withTableName(TABLE_NAME);
+        ScanResult res = dynamoDB.scan(scanRequest);
+        List<Item> itemList = ItemUtils.toItemList(res.getItems());
+        List<Book> books = new ArrayList<>();
+        for (Item item: itemList){
+            Book book = new Book();
+            book.setId(item.getString("id"));
+            book.setTitle(item.getString("title"));
+            book.setSummary(item.getString("summary"));
+            book.setAuthor(item.getString("author"));
+            book.setPublisher(item.getString("publisher"));
+            book.setPublishDate(item.getString("publishdate"));
+            books.add(book);
         }
-        return null;
+        return books;
     }
 
-    public Book addBook(Book book) {
-        this.books.add(book);
+    public Book getBookById(String id){
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("id", id);
+        Item item = table.getItem(spec);
+        Book book = new Book();
+        book.setId(item.getString("id"));
+        book.setTitle(item.getString("title"));
+        book.setSummary(item.getString("summary"));
+        book.setAuthor(item.getString("author"));
+        book.setPublisher(item.getString("publisher"));
+        book.setPublishDate(item.getString("publishdate"));
         return book;
     }
 
-    public boolean deleteBook(Long id) {
-        if (this.books.removeIf(book -> book.getId().equals(id))) {
-            return true;
-        }
-        return false;
+    public Book createBook(Book book) {
+        table.putItem(new Item()
+                .withPrimaryKey("id", UUID.randomUUID().toString())
+                .withString("title", book.getTitle())
+                .withString("summary", book.getSummary())
+                .withString("author", book.getAuthor())
+                .withString("publisher", book.getPublisher())
+                .withString("publishDate", book.getPublishDate()));
+        return book;
     }
 
-    public Book updateBook(Book book, Book newBook) {
-        book.setTitle(newBook.getTitle());
-        book.setSummary(newBook.getSummary());
-        book.setAuthor(newBook.getAuthor());
-        book.setPublisher(newBook.getPublisher());
-        book.setDate(newBook.getDate());
-        return book;
+    public Boolean deleteBook(String id) {
+        DeleteItemSpec deleteItemSpec = new DeleteItemSpec()
+                .withPrimaryKey(new PrimaryKey("id", id));
+        return table.deleteItem(deleteItemSpec).getItem() == null;
+    }
+
+    public Boolean updateBook(String id, Book updatedBook){
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec()
+                .withPrimaryKey(new PrimaryKey("id", id))
+                .withUpdateExpression("set title = :t, summary = :s, author = :a, publisher = :p, publishdate = :d, reviews = :r")
+                .withValueMap(new ValueMap()
+                        .withString(":t", updatedBook.getTitle())
+                        .withString(":s", updatedBook.getSummary())
+                        .withString(":a", updatedBook.getAuthor())
+                        .withString(":p", updatedBook.getPublisher())
+                        .withString(":d", updatedBook.getPublishDate())
+                        .withList(":r", updatedBook.getReviews()))
+                .withReturnValues(ReturnValue.ALL_OLD);
+        return table.updateItem(updateItemSpec).getItem() != null;
     }
 }

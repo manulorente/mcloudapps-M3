@@ -7,8 +7,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Handler for requests to Lambda function.
@@ -27,16 +25,15 @@ public class DeleteBook implements RequestHandler<APIGatewayProxyRequestEvent, A
                 .withHeaders(headers);
 
         try {
-            Long bookId = input.getPathParameters().get("id") != null ? Long.parseLong(input.getPathParameters().get("id")) : null;
-            if (bookRepository.deleteBook(bookId)) {
+            if (bookRepository.deleteBook(input.getPathParameters().get("id"))) {
                 return response
-                        .withBody(new ObjectMapper().writeValueAsString(bookRepository.getAllBooks()))
+                        .withBody("{message: Book deleted}")
                         .withStatusCode(200);
             }
             return response
                         .withBody("{error: Book not found}")
                         .withStatusCode(404);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             return response
                     .withBody("{error: " + e.getMessage() + "}")
                     .withStatusCode(500);

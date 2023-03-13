@@ -2,6 +2,7 @@ package books;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -28,10 +29,10 @@ public class CreateBook implements RequestHandler<APIGatewayProxyRequestEvent, A
                 .withHeaders(headers);
         try {
             Book book = new ObjectMapper().readValue(input.getBody(), Book.class);
-            book.setId(bookRepository.getNextId());
-            Book createdBook = bookRepository.addBook(book);
+            book.setId(UUID.randomUUID().toString());
+            bookRepository.createBook(book);
             return response
-                    .withBody(new ObjectMapper().writeValueAsString(bookRepository.getAllBooks()))
+                    .withBody("{message: Book created successfully }")
                     .withStatusCode(201);
         } catch (JsonProcessingException e) {
             return response

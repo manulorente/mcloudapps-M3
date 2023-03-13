@@ -30,7 +30,11 @@ public class GetAllReviews implements RequestHandler<APIGatewayProxyRequestEvent
         try {
 
             List<Review> reviews = reviewRepository.getAllReviews();
-
+            if (reviews == null) {
+                return response
+                        .withBody("{message: No reviews found}")
+                        .withStatusCode(200);
+            }
             return response
                     .withStatusCode(200)
                     .withBody(new ObjectMapper().writeValueAsString(reviews));

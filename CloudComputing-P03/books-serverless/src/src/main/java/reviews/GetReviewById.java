@@ -27,8 +27,7 @@ public class GetReviewById implements RequestHandler<APIGatewayProxyRequestEvent
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
         try {
-            Long reviewId = input.getPathParameters().get("id") != null ? Long.parseLong(input.getPathParameters().get("id")) : null;
-            Review review = reviewRepository.getReviewById(reviewId);
+            Review review = reviewRepository.getReviewById(input.getPathParameters().get("id"));
             if (review != null) {
                 return response
                         .withStatusCode(200)
