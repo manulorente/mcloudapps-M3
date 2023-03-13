@@ -24,7 +24,7 @@ resolve_s3 = true
 s3_prefix = "books-serverless"
 region = "us-east-1"
 image_repositories = []
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-ykwmo3b0jyyb"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-19vy2yaslh9lb"
 
 [default.package]
 [default.package.parameters]

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import reviews.Review;
+
 public class Book {
 
     private Long id;

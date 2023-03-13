@@ -1,4 +1,4 @@
-package books;
+package reviews;
 
 public class Review {
 
@@ -6,24 +6,24 @@ public class Review {
     private String userName;
     private String text;
     private int rating;
-    private Book book;
+    private Long bookId;
 
     public Review() {
     }
 
-    public Review(Long id, String userName, String text, int rating, Book book) {
+    public Review(Long id, String userName, String text, int rating, Long bookId) {
         this.id = id;
         this.userName = userName;
         this.text = text;
         this.rating = rating;
-        this.book = book;
+        this.bookId = bookId;
     }
 
-    public Long getReviewId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setReviewId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,23 +51,22 @@ public class Review {
         this.rating = rating;
     }
 
-    public Book getBook() {
-        return this.book;
+    public Long getBookId() {
+        return this.bookId;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     @Override
     public String toString() {
         return "Review{" +
-            " id='" + getReviewId() + '\'' +
+            " id='" + getId() + '\'' +
             ", userName='" + getUserName() + '\'' +
             ", text='" + getText() + '\'' +
             ", rating='" + getRating() + '\'' +
-            ", book='" + getBook() + '\'' +
+            ", bookId='" + getBookId() + '\'' +
             "}";
     }
-
 }
