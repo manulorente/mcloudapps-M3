@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
@@ -23,7 +24,7 @@ public class UpdateReview implements RequestHandler<APIGatewayProxyRequestEvent,
     private final BookRepository bookRepository = new BookRepository();
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
-                
+        LambdaLogger logger = context.getLogger();       
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
@@ -32,10 +33,13 @@ public class UpdateReview implements RequestHandler<APIGatewayProxyRequestEvent,
                 .withHeaders(headers);
         try {
             String reviewId = input.getPathParameters().get("id");
-            if (reviewRepository.updateReview(reviewId, new ObjectMapper().readValue(input.getBody(), Review.class))) {
-                Review review = reviewRepository.getReviewById(reviewId);
-                Book book = bookRepository.getBookById(review.getBookId());
+            if (this.reviewRepository.updateReview(reviewId, new ObjectMapper().readValue(input.getBody(), Review.class))) {
+                Review review = this.reviewRepository.getReviewById(reviewId);
+                logger.log(reviewId + " updated to " + review.toString());
+                Book book = this.bookRepository.getBookById(review.getBookId());
+                logger.log("Book to update: " + book.toString());
                 book.addReview(review);
+                logger.log(review.toString() + " added to " + book.toString());
                 this.bookRepository.updateBook(review.getBookId(),book);
                 return response
                         .withBody("{message: Review updated successfully}")

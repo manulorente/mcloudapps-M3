@@ -36,14 +36,13 @@ public class CreateReview implements RequestHandler<APIGatewayProxyRequestEvent,
             Review review = new ObjectMapper().readValue(input.getBody(), Review.class);
             review.setId(UUID.randomUUID().toString());
             logger.log("Review to create: " + review.toString());
-            reviewRepository.createReview(review);
+            this.reviewRepository.createReview(review);
             logger.log("Review created");
-            Book book = bookRepository.getBookById(review.getBookId());
+            Book book = this.bookRepository.getBookById(review.getBookId());
             logger.log("Book to update: " + book.toString());
             book.addReview(review);
-            logger.log("Review " + review.toString() + " added to book " + book.toString());
+            logger.log(review.toString() + " added to " + book.toString());
             this.bookRepository.updateBook(review.getBookId(),book);
-            logger.log("Book updated: " + this.bookRepository.getBookById(review.getBookId()).toString());
             return response
                 .withBody("{message: Review created successfully }")
                 .withStatusCode(201);

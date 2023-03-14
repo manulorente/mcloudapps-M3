@@ -39,10 +39,10 @@ public class ReviewRepository {
         for (Item item: itemList){
             Review review = new Review();
             review.setId(item.getString("id"));
-            review.setUserName(item.getString("username"));
-            review.setReviewDescription(item.getString("reviewdescription"));
+            review.setUserName(item.getString("userName"));
+            review.setReviewDescription(item.getString("reviewDescription"));
             review.setRating(item.getString("rating"));
-            review.setBookId(item.getString("bookid"));
+            review.setBookId(item.getString("bookId"));
             reviews.add(review);
         }
         return reviews;
@@ -53,8 +53,8 @@ public class ReviewRepository {
         Item item = table.getItem(spec);
         Review review = new Review();
         review.setId(item.getString("id"));
-        review.setUserName(item.getString("username"));
-        review.setReviewDescription(item.getString("reviewdescription"));
+        review.setUserName(item.getString("userName"));
+        review.setReviewDescription(item.getString("reviewDescription"));
         review.setRating(item.getString("rating"));
         return review;
     }
@@ -62,10 +62,10 @@ public class ReviewRepository {
     public Review createReview(Review review) {
         table.putItem(new Item()
                 .withPrimaryKey("id", UUID.randomUUID().toString())
-                .withString("username", review.getUserName())
+                .withString("userName", review.getUserName())
                 .withString("reviewDescription", review.getReviewDescription())
                 .withString("rating", review.getRating())
-                .withString("bookid", review.getBookId()));
+                .withString("bookId", review.getBookId()));
         return review;
     }
 
@@ -79,7 +79,7 @@ public class ReviewRepository {
     public Boolean updateReview(String id, Review updatedReview) {
         UpdateItemSpec updateItemSpec = new UpdateItemSpec()
             .withPrimaryKey(new PrimaryKey("id", id))
-            .withUpdateExpression("set username = :u, reviewdescription = :c, rating = :r")
+            .withUpdateExpression("set username = :u, reviewDescription = :c, rating = :r")
             .withValueMap(new ValueMap()
                 .withString(":u", updatedReview.getUserName())
                 .withString(":c", updatedReview.getReviewDescription())
