@@ -24,8 +24,8 @@ build&push() {
     # Service with Spring-Boot + Multi-stage Dockerfile
     if [ "$service" = "planner" ]; then
         cd $service
-        docker build -f . -t $DOCKER_USER/$service .
-        docker push $DOCKER_USER/$service:v0.1
+        docker build -f Dockerfile -t $DOCKER_USER/$service .
+        docker push $DOCKER_USER/$service:latest
         cd ..
     fi
 }

@@ -28,9 +28,10 @@ FROM openjdk:11-jre-slim
 WORKDIR /usr/app/
 
 # Install wait-for-it.sh script
-RUN apt-get udpate && apt-get install -y curl \
+RUN apt-get udpate \ 
+    && apt-get install -y curl \
     && curl -LJO https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
-    && chmod +x /usr/src/app/wait-for-it.sh
+    && chmod +x /usr/app/wait-for-it.sh
 
 # Copy the jar file from the first stage
 COPY --from=builder /app/target/*.jar /usr/app/
