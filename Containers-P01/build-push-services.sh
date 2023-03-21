@@ -3,7 +3,7 @@
 DOCKER_USER=manloralm
 
 # Build and push all services to Docker Hub
-build&push() {
+build_and_push() {
     service=$1
     if [ -z "$service" ]; then
         echo "No service specified"
@@ -12,7 +12,7 @@ build&push() {
     # Service with Quarkus + JIB (native image doesn't work with Windows)    
     if [ "$service" = "server" ] || [ "$service" = "weatherservice" ]; then
         cd $service
-        ./mvnw install -DskipTests
+        ./mvnw clean install -DskipTests
         cd ..
     fi
     # Service with Spring-Boot + JIB (Buildpacks doesn't work with my machine)
@@ -31,6 +31,6 @@ build&push() {
 }
 
 for service in */; do
-    echo "Building $service"
-    build&push $service
+    echo "Building ${service%%/}"
+    build_and_push ${service%%/}
 done

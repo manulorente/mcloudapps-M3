@@ -31,7 +31,6 @@ services:
     restart: on-failure
     environment:
       - RABBIT_PORT=5672
-      - RABBIT_HOST=rabbitmq
       - RABBIT_USER=root
       - RABBIT_PASS=password    
     ports:
