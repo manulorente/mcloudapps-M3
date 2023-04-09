@@ -54,4 +54,4 @@ spec:
   - port: 8080
     targetPort: 8080
     name: server-port
-  type: NodePort
+  type: ClusterIP

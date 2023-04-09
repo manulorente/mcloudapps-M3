@@ -34,6 +34,12 @@ To view al resources in the cluster in real time:
 watch -n 1 kubectl get pods,services,deployments
 ```
 
+or just:
+
+```sh
+minikube dashboard
+``
+
 ## Associate domain name to IP to get access
 
 ```sh
