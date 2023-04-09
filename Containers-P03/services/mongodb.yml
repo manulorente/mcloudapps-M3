@@ -62,30 +62,3 @@ spec:
     name: mongo-port-27019
     protocol: TCP
   type: ClusterIP
-
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: mongodb-pvc
-spec:
-  storageClassName: mongodb-vol
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
-
----
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: mongodb-pv
-spec:
-  storageClassName: mongodb-vol
-  capacity:
-    storage: 3Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /db/mongo

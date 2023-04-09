@@ -7,17 +7,17 @@ metadata:
 spec:
   rules:
   - host: cluster-ip
-  - http:
+    http:
       paths:
       - path: /(.*)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: server-service
             port:
               number: 8080
       - path: /toposervice/(.*)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: toposervice

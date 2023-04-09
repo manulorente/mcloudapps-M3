@@ -49,30 +49,3 @@ spec:
     name: mysql-port
     protocol: TCP
   type: ClusterIP
-
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: mysql-pvc
-spec:
-  storageClassName: mysql-vol
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
-
----
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: mysql-pv
-spec:
-  storageClassName: mysql-vol
-  capacity:
-    storage: 3Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /db/mysql
