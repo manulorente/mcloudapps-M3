@@ -38,7 +38,7 @@ or just:
 
 ```sh
 minikube dashboard
-``
+```
 
 ## Associate domain name to IP to get access
 
