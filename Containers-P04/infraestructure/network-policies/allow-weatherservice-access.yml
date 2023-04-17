@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-weatherservice-access
+spec:
+  podSelector:
+    matchLabels:
+      app: "weatherservice"
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          networking/allow-weatherservice-access: "true"
+    ports:
+      - protocol: TCP
+        port: 9090

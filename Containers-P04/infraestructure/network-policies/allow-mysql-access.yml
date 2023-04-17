@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-mysql-access
+spec:
+  podSelector:
+    matchLabels:
+      app: "mysql"
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          networking/allow-mysql-access: "true"
+    ports:
+      - protocol: TCP
+        port: 3306
