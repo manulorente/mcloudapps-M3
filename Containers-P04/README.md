@@ -69,13 +69,13 @@ kubectl delete pod <mongodb_pod_name>
 kubectl edit deployment <deployment_name>
 ```
 
-## Build all services once modified  
+## Build and push to DockerHub all services once modified  
 
 ```sh
 ./build.sh
 ```
 
-## Build and publish all services
+or
 
 ```sh
 ./build.sh push
