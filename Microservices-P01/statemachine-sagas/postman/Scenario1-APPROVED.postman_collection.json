@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "231eb5e7-e826-4eaf-9a87-fffb21ad9d38",
+		"name": "SCENARIO 1 (APPROVED)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Customer with 1500 € of credit created\", function () {\r",
+							"  pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CustomerID in the response\", function () {\r",
+							"    var responseJson = pm.response.json();                \r",
+							"    pm.collectionVariables.set(\"customerId\", responseJson.customerId);\r",
+							"    pm.expect(pm.response.text()).to.include(\"customerId\");    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46NGRtMW5TM2NyM3Qu"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Fernando Alonso3\",\n\t\"creditLimit\": 1500\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create product in inventory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Product with reference PROD001 and 150 stockQuantity created\", function () {\r",
+							"  pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Product in the response\", function () {\r",
+							"    var responseJson = pm.response.json();                \r",
+							"    pm.collectionVariables.set(\"reference\", responseJson.reference);    \r",
+							"    pm.collectionVariables.set(\"name\", responseJson.name);    \r",
+							"    pm.expect(pm.response.text()).to.include(\"inventoryId\");    \r",
+							"\r",
+							"    productName\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\":\"LG 32LM6300PLA 56\",\n   \"reference\": \"PROD056\",\n   \"stockQuantity\": 150\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creaty city",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/v1/city",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"city"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OrderID created\", function () {\r",
+							"  pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"OrderID in the response\", function () {\r",
+							"    var responseJson = pm.response.json();                \r",
+							"    pm.collectionVariables.set(\"orderId\", responseJson.orderId);\r",
+							"    pm.expect(pm.response.text()).to.include(\"orderId\");    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"{{customerId}}\",\n\t\"productName\" : \"LG 32LM6300PLA 32\",\n\t\"productReference\": \"{{reference}}\",\n\t\"quantity\": 40,\n    \"codCity\": \"{{codCity}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get order state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"119671a6-5d29-47ac-a236-3101777b8c59"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products/25cecfde-7d43-4a15-8342-1a91640e137f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"25cecfde-7d43-4a15-8342-1a91640e137f"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "customerId",
+			"value": ""
+		},
+		{
+			"key": "reference",
+			"value": ""
+		},
+		{
+			"key": "codCity",
+			"value": ""
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		},
+		{
+			"key": "productName",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "inventoryId",
+			"value": ""
+		}
+	]
+}
