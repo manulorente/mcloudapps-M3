@@ -9,13 +9,16 @@ import es.codeurjc.orderservice.model.events.dto.OrderDto;
 @Component
 public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
 	
+
 	@Override
 	public OrderDto convert(Order order) {
 		return new OrderDto.Builder()
 				           .withId(order.getId())
 				           .withState(order.getState())
-				           .withProductId(order.getProductId())
+				           .withName(order.getName())
 				           .withQuantity(order.getQuantity())
+				           .withReference(order.getReference())
+						   .withCodCity(order.getCodCity())
 				           .build();
 	}
 

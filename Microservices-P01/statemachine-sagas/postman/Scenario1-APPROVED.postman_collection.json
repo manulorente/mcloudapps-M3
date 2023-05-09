@@ -1,27 +1,18 @@
 {
 	"info": {
-		"_postman_id": "231eb5e7-e826-4eaf-9a87-fffb21ad9d38",
+		"_postman_id": "89d165fd-ef9f-4b52-b855-016e936bf605",
 		"name": "SCENARIO 1 (APPROVED)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24772546"
 	},
 	"item": [
 		{
-			"name": "create customer",
+			"name": "1 - Create customer",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Customer with 1500 € of credit created\", function () {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"CustomerID in the response\", function () {\r",
-							"    var responseJson = pm.response.json();                \r",
-							"    pm.collectionVariables.set(\"customerId\", responseJson.customerId);\r",
-							"    pm.expect(pm.response.text()).to.include(\"customerId\");    \r",
-							"});\r",
-							"\r",
 							""
 						],
 						"type": "text/javascript"
@@ -42,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Fernando Alonso3\",\n\t\"creditLimit\": 1500\n}"
+					"raw": "{\n\t\"name\":\"Pepe\",\n\t\"creditLimit\": 1000\n}"
 				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/customers",
@@ -61,13 +52,13 @@
 			"response": []
 		},
 		{
-			"name": "create product in inventory",
+			"name": "2- Create product",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Product with reference PROD001 and 150 stockQuantity created\", function () {\r",
+							"pm.test(\"Product with reference PROD100 and 150 stockQuantity created\", function () {\r",
 							"  pm.response.to.have.status(201);\r",
 							"});\r",
 							"\r",
@@ -76,8 +67,6 @@
 							"    pm.collectionVariables.set(\"reference\", responseJson.reference);    \r",
 							"    pm.collectionVariables.set(\"name\", responseJson.name);    \r",
 							"    pm.expect(pm.response.text()).to.include(\"inventoryId\");    \r",
-							"\r",
-							"    productName\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -94,7 +83,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"name\":\"LG 32LM6300PLA 56\",\n   \"reference\": \"PROD056\",\n   \"stockQuantity\": 150\n}"
+					"raw": "{\n   \"name\":\"Iphone 10\",\n   \"reference\": \"PROD101\",\n   \"stockQuantity\": 150\n}"
 				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/products",
@@ -113,10 +102,52 @@
 			"response": []
 		},
 		{
-			"name": "Creaty city",
+			"name": "3 - Get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products/26513cbd-ea97-4ded-b812-37893fd621bf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"26513cbd-ea97-4ded-b812-37893fd621bf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - Creaty city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Sevilla\",\n\t\"codCity\": \"SVQ\",\n    \"deliveryQuantity\": 15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/city",
 					"protocol": "http",
@@ -134,21 +165,13 @@
 			"response": []
 		},
 		{
-			"name": "create order",
+			"name": "5 - Create order",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"OrderID created\", function () {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"OrderID in the response\", function () {\r",
-							"    var responseJson = pm.response.json();                \r",
-							"    pm.collectionVariables.set(\"orderId\", responseJson.orderId);\r",
-							"    pm.expect(pm.response.text()).to.include(\"orderId\");    \r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -164,7 +187,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"{{customerId}}\",\n\t\"productName\" : \"LG 32LM6300PLA 32\",\n\t\"productReference\": \"{{reference}}\",\n\t\"quantity\": 40,\n    \"codCity\": \"{{codCity}}\"\n}"
+					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"33d5cdc4-82af-42c3-bc2b-70df0ce69b3d\",\n\t\"productReference\": \"PROD101\",\n\t\"quantity\": 4,\n    \"codCity\": \"SVQ\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/orders",
@@ -183,12 +206,12 @@
 			"response": []
 		},
 		{
-			"name": "get order state",
+			"name": "6 - Get order state",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
+					"raw": "http://localhost:9090/api/v1/orders/70a191fa-af4b-417b-a17a-f1de5174cd61",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -198,29 +221,7 @@
 						"api",
 						"v1",
 						"orders",
-						"119671a6-5d29-47ac-a236-3101777b8c59"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get product",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9090/api/v1/products/25cecfde-7d43-4a15-8342-1a91640e137f",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9090",
-					"path": [
-						"api",
-						"v1",
-						"products",
-						"25cecfde-7d43-4a15-8342-1a91640e137f"
+						"70a191fa-af4b-417b-a17a-f1de5174cd61"
 					]
 				}
 			},

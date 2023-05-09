@@ -12,9 +12,15 @@ public class OrderDto {
     @JsonProperty("id")
     private UUID id;
     
-    @JsonProperty("productId")
-    private String productId;
+    @JsonProperty("name")
+    private String name;
     
+    @JsonProperty("reference")
+    private String reference;
+
+    @JsonProperty("codCity")
+    private String codCity;
+
     @JsonProperty("quantity")
     private Integer quantity;
     
@@ -25,14 +31,20 @@ public class OrderDto {
         return id;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getName() {
+        return name;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
     
+    public String getReference() {
+		return reference;
+	}
+
+    public String getCodCity() {return codCity;}
+
     public OrderStatusEnum getState() {
         return state;
     }
@@ -50,8 +62,18 @@ public class OrderDto {
             return this;
         }
         
-        public Builder withProductId(String value) {
-            object.productId = value;
+        public Builder withName(String value) {
+            object.name = value;
+            return this;
+        }
+
+        public Builder withReference(String value) {
+            object.reference = value;
+            return this;
+        }
+
+        public Builder withCodCity(String value) {
+            object.codCity = value;
             return this;
         }
         

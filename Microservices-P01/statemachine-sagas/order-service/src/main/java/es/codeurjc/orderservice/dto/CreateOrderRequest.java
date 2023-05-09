@@ -6,59 +6,78 @@ import java.util.UUID;
 
 public class CreateOrderRequest {
 	
-  private BigDecimal orderTotal;
-  private UUID customerId;
-  private String productId;
-  private Integer quantity;
-  
-  
-  public BigDecimal getOrderTotal() {
-      return orderTotal;
-  }
+    private BigDecimal orderTotal;
+    private UUID customerId;
+    private String productName;
+    private String productReference;
+    private Integer quantity;
+    private String codCity;
+    
+    public BigDecimal getOrderTotal() {
+        return orderTotal;
+    }
 
-  public UUID getCustomerId() {
-      return customerId;
-  }
+    public UUID getCustomerId() {
+        return customerId;
+    }
 
-  public String getProductId() {
-      return productId;
-  }
+    public String getProductName() {
+        return productName;
+    }
 
-  public Integer getQuantity() {
-      return quantity;
-  }
+    public String getProductReference() {
+        return productReference;
+    }
 
-  public static final class Builder {
+    public Integer getQuantity() {
+        return quantity;
+    }
 
-      private final CreateOrderRequest object;
+    public String getCodCity() {
+        return codCity; 
+    }
 
-      public Builder() {
-          object = new CreateOrderRequest();
-      }
+    public static final class Builder {
 
-      public Builder withOrderTotal(BigDecimal value) {
-          object.orderTotal = value;
-          return this;
-      }
+        private final CreateOrderRequest object;
 
-      public Builder withCustomerId(UUID value) {
-          object.customerId = value;
-          return this;
-      }
+        public Builder() {
+            object = new CreateOrderRequest();
+        }
 
-      public Builder withProductId(String value) {
-          object.productId = value;
-          return this;
-      }
+        public Builder withOrderTotal(BigDecimal value) {
+            object.orderTotal = value;
+            return this;
+        }
 
-      public Builder withQuantity(Integer value) {
-          object.quantity = value;
-          return this;
-      }
+        public Builder withCustomerId(UUID value) {
+            object.customerId = value;
+            return this;
+        }
 
-      public CreateOrderRequest build() {
-          return object;
-      }
+        public Builder withProductName(String value) {
+            object.productName = value;
+            return this;
+        }
 
-  }
+        public Builder withProductReference(String value) {
+            object.productReference = value;
+            return this;
+        }
+
+        public Builder withQuantity(Integer value) {
+            object.quantity = value;
+            return this;
+        }
+
+        public Builder withCodCity(String value) {
+            object.codCity = value;
+            return this;
+        }
+
+        public CreateOrderRequest build() {
+            return object;
+        }
+
+    }
 }

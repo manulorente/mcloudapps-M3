@@ -40,20 +40,24 @@ public class Order {
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false )
     private UUID id;
 
-    private String productId;
+    private String name;
+    
+    private String reference;
+
+    private String codCity;
     
     @JsonProperty("quantity")
     private Integer quantity;
     
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 100)
 	private OrderStatusEnum state;
 
 	@Embedded
 	private OrderDetails orderDetails;
 	
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 100)
 	private RejectionReasonEnum rejectionReason;
 	
     @CreationTimestamp
@@ -92,14 +96,22 @@ public class Order {
         return orderDetails;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getName() {
+        return name;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
     
+    public String getReference() {
+		return reference;
+	}
+
+    public String getCodCity() {
+        return codCity;
+    }
+
     public RejectionReasonEnum getRejectionReason() {
         return rejectionReason;
     }
@@ -107,7 +119,6 @@ public class Order {
     public void setRejectionReason(RejectionReasonEnum rejectionReason) {
 		this.rejectionReason = rejectionReason;
 	}
-
     
 	public Timestamp getCreatedDate() {
 		return createdDate;
@@ -116,7 +127,6 @@ public class Order {
 	public Timestamp getLastModifiedDate() {
 		return lastModifiedDate;
 	}
-
 
 
 	public static final class Builder {
@@ -132,11 +142,21 @@ public class Order {
             return this;
         }
         
-        public Builder withProductId(String value) {
-            object.productId = value;
+        public Builder withName(String value) {
+            object.name = value;
             return this;
         }
 
+        public Builder withReference(String value) {
+            object.reference = value;
+            return this;
+        }
+
+        public Builder withCodCity(String value) {
+            object.codCity = value;
+            return this;
+        }
+        
         public Builder withQuantity(Integer value) {
             object.quantity = value;
             return this;

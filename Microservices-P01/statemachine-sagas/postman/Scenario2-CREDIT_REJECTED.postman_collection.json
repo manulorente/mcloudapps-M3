@@ -1,27 +1,18 @@
 {
 	"info": {
-		"_postman_id": "34e9be1f-79e0-4b4a-a89c-c218dcd97816",
-		"name": "Prácticas microservicios Test automáticos: ESCENARIO 2 (CREDIT_REJECTED)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "6c123690-757d-478a-b4d6-714cb593436d",
+		"name": "SCENARIO 2 (CREDIT_REJECTED)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24772546"
 	},
 	"item": [
 		{
-			"name": "create customer",
+			"name": "1 - Create customer",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Customer with 1500 € of credit created\", function () {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"CustomerID in the response\", function () {\r",
-							"    var responseJson = pm.response.json();                \r",
-							"    pm.collectionVariables.set(\"customerId\", responseJson.customerId);\r",
-							"    pm.expect(pm.response.text()).to.include(\"customerId\");    \r",
-							"});\r",
-							"\r",
 							""
 						],
 						"type": "text/javascript"
@@ -42,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Fernando Alonso3\",\n\t\"creditLimit\": 1500\n}"
+					"raw": "{\n\t\"name\":\"Pepe2\",\n\t\"creditLimit\": 1500\n}"
 				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/customers",
@@ -61,24 +52,13 @@
 			"response": []
 		},
 		{
-			"name": "create product in inventory",
+			"name": "2 - Create product",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Product with reference PROD001 and 150 stockQuantity created\", function () {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Product in the response\", function () {\r",
-							"    var responseJson = pm.response.json();                \r",
-							"    pm.collectionVariables.set(\"reference\", responseJson.reference);    \r",
-							"    pm.collectionVariables.set(\"name\", responseJson.name);    \r",
-							"    pm.expect(pm.response.text()).to.include(\"inventoryId\");    \r",
-							"\r",
-							"    productName\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -94,7 +74,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"name\":\"LG 32LM6300PLA 56\",\n   \"reference\": \"PROD056\",\n   \"stockQuantity\": 150\n}"
+					"raw": "{\n   \"name\":\"Iphone 4\",\n   \"reference\": \"PROD104\",\n   \"stockQuantity\": 150\n}"
 				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/products",
@@ -113,10 +93,19 @@
 			"response": []
 		},
 		{
-			"name": "Creaty city",
+			"name": "3 - Creaty city",
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Cordoba\",\n\t\"codCity\": \"CDB\",\n    \"deliveryQuantity\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/city",
 					"protocol": "http",
@@ -134,21 +123,13 @@
 			"response": []
 		},
 		{
-			"name": "create order",
+			"name": "4 - Create order",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"OrderID created\", function () {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"OrderID in the response\", function () {\r",
-							"    var responseJson = pm.response.json();                \r",
-							"    pm.collectionVariables.set(\"orderId\", responseJson.orderId);\r",
-							"    pm.expect(pm.response.text()).to.include(\"orderId\");    \r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -164,7 +145,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"orderTotal\": 100,\n\t\"customerId\": \"{{customerId}}\",\n\t\"productName\" : \"LG 32LM6300PLA 32\",\n\t\"productReference\": \"{{reference}}\",\n\t\"quantity\": 40,\n    \"codCity\": \"{{codCity}}\"\n}"
+					"raw": "{\n\t\"orderTotal\": 2000,\n\t\"customerId\": \"e7d8b0dc-1ca7-4fbf-844f-221368be50c9\",\n\t\"productReference\": \"PROD104\",\n\t\"quantity\": 4,\n    \"codCity\": \"COR\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:9090/api/v1/orders",
@@ -183,12 +164,12 @@
 			"response": []
 		},
 		{
-			"name": "get order state",
+			"name": "5 - Get order state",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
+					"raw": "http://localhost:9090/api/v1/orders/ba79c379-294b-48f6-929c-8cfc7d70d250",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -198,7 +179,7 @@
 						"api",
 						"v1",
 						"orders",
-						"119671a6-5d29-47ac-a236-3101777b8c59"
+						"ba79c379-294b-48f6-929c-8cfc7d70d250"
 					]
 				}
 			},

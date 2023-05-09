@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import es.codeurjc.orderservice.model.events.AllocateDeliveryResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,27 @@ public class OrderStreamListener {
 		  }
         orderManager.processAllocationResult(orderId, result.getIsValid());
     }
+
+	@StreamListener(OrderStream.INPUT_ALLOCATE_DELIVERY_ORDER)
+	public void handleAllocateDeliveryResult(@Payload AllocateDeliveryResult result) {
+		final UUID orderId = result.getOrderId();
+
+		log.debug("Allocation Delivery Result for Order Id: " + orderId);
+
+		final String reason = result.getReason();
+		if (reason!=null) {
+			Optional<Order> orderOptional = orderRepository.findById(orderId);
+
+			orderOptional.ifPresentOrElse(order -> {
+				order.setRejectionReason(RejectionReasonEnum.valueOf(reason));
+				orderRepository.save(order);
+			}, () -> log.error("Order Not Found. Id: " + orderId));
+		}
+		orderManager.processAllocationDeliveryResult(orderId, result.getIsValid());
+	}
 	
 	@StreamListener(OrderStream.INPUT_CREDIT_ORDER)
-	public void handleCreditResult(@Payload  CreditResult result) {
+	public void handleCreditResult(@Payload CreditResult result) {
 		  final UUID orderId = result.getOrderId();
 		  log.debug("Credit Result for Order Id: " + orderId);
 		  final String reason = result.getRejectionReason();
