@@ -10,6 +10,7 @@ import es.urjc.samples.eventsourcing.shoppingcart.application.query.AllShoppingC
 import es.urjc.samples.eventsourcing.shoppingcart.application.query.ShoppingCartQuery;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.event.ShoppingCartCreatedEvent;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.event.ShoppingCartItemCreatedEvent;
+import es.urjc.samples.eventsourcing.shoppingcart.domain.event.ShoppingCartItemDeletedEvent;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.model.ShoppingCartInfo;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.model.ShoppingCartItemInfo;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.repository.ShoppingCartInfoRepository;
@@ -43,7 +44,30 @@ public class ShoppingCartProjection {
     @EventHandler
     public void addProduct(ShoppingCartItemCreatedEvent event) {
         ShoppingCartInfo shoppingCart = shoppingCartInfoRepository.findById(event.getCartId()).orElse(null);
-        shoppingCart.addItem(new ShoppingCartItemInfo(event.getProductId(), event.getQuantity()));
+        ShoppingCartItemInfo shoppingCartItem = shoppingCart.getItems().stream()
+            .filter(item -> item.getProductId().equals(event.getProductId()))
+            .findFirst()
+            .orElse(null);
+        if (shoppingCartItem != null) {
+            shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() + event.getQuantity());
+        } else {
+            shoppingCart.addItem(new ShoppingCartItemInfo(event.getItemId(), event.getProductId(), event.getQuantity()));
+        }
+        shoppingCartInfoRepository.save(shoppingCart);
+    }
+
+    @EventHandler
+    public void deleteProduct(ShoppingCartItemDeletedEvent event) {
+        ShoppingCartInfo shoppingCart = shoppingCartInfoRepository.findById(event.getCartId()).orElse(null);
+        ShoppingCartItemInfo shoppingCartItem = shoppingCart.getItems().stream()
+            .filter(item -> item.getProductId().equals(event.getProductId()))
+            .findFirst()
+            .orElse(null);
+        if (event.getQuantity() == 0 || event.getQuantity() >= shoppingCartItem.getQuantity()) {
+            shoppingCart.removeItem(shoppingCartItem);
+        } else {
+            shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() - event.getQuantity());
+        }
         shoppingCartInfoRepository.save(shoppingCart);
     }
     

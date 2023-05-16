@@ -1,7 +1,7 @@
 package es.urjc.samples.eventsourcing.shoppingcart.domain.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
@@ -9,6 +9,7 @@ public class ShoppingCartInfo {
 
     @Id
     private String cartId;
+
     private String customerId;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -43,11 +44,12 @@ public class ShoppingCartInfo {
         return items;
     }
 
-    public void setItems(List<ShoppingCartItemInfo> items) {
-        this.items = items;
-    }
-
     public void addItem(ShoppingCartItemInfo item) {
         this.items.add(item);
     }
+
+    public void removeItem(ShoppingCartItemInfo item) {
+        this.items.remove(item);
+    }
+    
 }

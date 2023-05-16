@@ -6,24 +6,26 @@ import javax.persistence.*;
 public class ShoppingCartItemInfo {
 
     @Id
-    private int cartItemId;
+    private String cartItemId;
 
     private String productId;
+    
     private int quantity;
 
     public ShoppingCartItemInfo() {
     }
 
-    public ShoppingCartItemInfo(String productId, int quantity) {
+    public ShoppingCartItemInfo(String cartItemId, String productId, int quantity) {
+        this.cartItemId = cartItemId;
         this.productId = productId;
         this.quantity = quantity;
     }
 
-    public int getCartItemId() {
+    public String getCartItemId() {
         return cartItemId;
     }
 
-    public void setCartItemId(int cartItemId) {
+    public void setCartItemId(String cartItemId) {
         this.cartItemId = cartItemId;
     }
 

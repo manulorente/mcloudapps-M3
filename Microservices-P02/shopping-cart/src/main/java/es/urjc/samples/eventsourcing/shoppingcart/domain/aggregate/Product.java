@@ -19,7 +19,9 @@ public class Product {
     private String productId;
 
     private String name;
+    
     private String description;
+
     private BigDecimal price;
 
     public Product() {

@@ -1,6 +1,5 @@
 package es.urjc.samples.eventsourcing.shoppingcart.domain.aggregate;
 
-import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +10,8 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
-import es.urjc.samples.eventsourcing.shoppingcart.application.command.AddItemCommand;
-import es.urjc.samples.eventsourcing.shoppingcart.application.command.CreateProductCommand;
 import es.urjc.samples.eventsourcing.shoppingcart.application.command.CreateShoppingCartCommand;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.event.ShoppingCartCreatedEvent;
-import es.urjc.samples.eventsourcing.shoppingcart.domain.event.ShoppingCartItemCreatedEvent;
 import es.urjc.samples.eventsourcing.shoppingcart.domain.model.ShoppingCartItemInfo;
 
 @Aggregate
@@ -42,7 +38,7 @@ public class ShoppingCart {
     }
 
     @EventSourcingHandler
-    public void createCart(ShoppingCartCreatedEvent event) {
+    public void on(ShoppingCartCreatedEvent event) {
         this.shoppingCartId = event.getCartId();
         this.customerId = event.getCustomerId();
         this.items = new ArrayList<>();

@@ -1,6 +1,6 @@
 package es.urjc.samples.eventsourcing.shoppingcart.domain.event;
 
-public class ShoppingCartItemCreatedEvent {
+public class ShoppingCartItemDeletedEvent {
 
     String itemId;
 
@@ -10,10 +10,10 @@ public class ShoppingCartItemCreatedEvent {
 
     int quantity;
 
-    public ShoppingCartItemCreatedEvent() {
+    public ShoppingCartItemDeletedEvent() {
     }
 
-    public ShoppingCartItemCreatedEvent(String itemId, String cartId, String productId, int quantity) {
+    public ShoppingCartItemDeletedEvent(String itemId, String cartId, String productId, int quantity) {
         this.itemId = itemId;
         this.cartId = cartId;
         this.productId = productId;
@@ -23,7 +23,7 @@ public class ShoppingCartItemCreatedEvent {
     public String getItemId() {
         return itemId;
     }
-
+    
     public String getCartId() {
         return cartId;
     }

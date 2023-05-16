@@ -9,8 +9,6 @@ import es.urjc.samples.eventsourcing.shoppingcart.domain.model.CustomerInfo;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +18,6 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/customers")
 public class CustomerRestController {
-
-    private static final Logger logger = LoggerFactory.getLogger(CustomerRestController.class);
 
     private final CommandGateway commandGateway;
     
@@ -49,7 +45,6 @@ public class CustomerRestController {
             ResponseTypes.multipleInstancesOf(CustomerInfo.class));        
     }
 
-
     @GetMapping("/{customerId}")
     public CompletableFuture<CustomerInfo> getCustomer(@PathVariable String customerId) {
         return queryGateway.query(
@@ -57,7 +52,6 @@ public class CustomerRestController {
             ResponseTypes.instanceOf(CustomerInfo.class));
     }
 
-   
     @PostMapping("/{customerId}/cart")
     public CompletableFuture<Void> createCart(@PathVariable String customerId) {
         return commandGateway.send(

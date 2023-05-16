@@ -34,8 +34,7 @@ public class ProductRestController {
                     product.getProductId() != null ? product.getProductId():UUID.randomUUID().toString(), 
                     product.getName(),
                     product.getDescription(),
-                    product.getPrice())
-                    );
+                    product.getPrice()));
     }
 
     @GetMapping

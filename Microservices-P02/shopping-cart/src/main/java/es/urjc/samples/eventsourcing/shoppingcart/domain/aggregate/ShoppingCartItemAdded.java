@@ -11,34 +11,37 @@ import es.urjc.samples.eventsourcing.shoppingcart.application.command.AddItemCom
 import es.urjc.samples.eventsourcing.shoppingcart.domain.event.ShoppingCartItemCreatedEvent;
 
 @Aggregate
-public class ShoppingCartItem {
-
+public class ShoppingCartItemAdded {
+    
     @AggregateIdentifier
+    private String itemId;
+
     private String shoppingCartId;
 
     private String productId;
 
     private int quantity;
 
-    public ShoppingCartItem() {
+    public ShoppingCartItemAdded() {
     }
 
     @CommandHandler
-    public ShoppingCartItem(AddItemCommand command) {
+    public ShoppingCartItemAdded(AddItemCommand command) {
         Assert.notNull(command.getCartId(), () -> "Shopping cart id must exist");
         Assert.notNull(command.getProductId(), () -> "Product id must exist");
         Assert.isTrue(command.getQuantity() > 0, () -> "Quantity must be greater than 0");
         AggregateLifecycle.apply(
             new ShoppingCartItemCreatedEvent(
+                command.getItemId(),
                 command.getCartId(), 
                 command.getProductId(), 
                 command.getQuantity()));
     }
 
     @EventSourcingHandler
-    public void createItem(ShoppingCartItemCreatedEvent event) {
+    public void on(ShoppingCartItemCreatedEvent event) {
+        this.itemId = event.getItemId();
         this.shoppingCartId = event.getCartId();
-        this.productId = event.getProductId();
         this.productId = event.getProductId();
         this.quantity = event.getQuantity();
     }
