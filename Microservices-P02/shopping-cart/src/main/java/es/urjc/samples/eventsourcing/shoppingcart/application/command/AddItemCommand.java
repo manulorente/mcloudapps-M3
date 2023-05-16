@@ -1,0 +1,31 @@
+package es.urjc.samples.eventsourcing.shoppingcart.application.command;
+
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
+
+public class AddItemCommand {
+
+    @TargetAggregateIdentifier
+    private final String cartId;
+
+    private final String productId;
+
+    private final int quantity;
+
+    public AddItemCommand(String cartId, String productId, int quantity) {
+        this.cartId = cartId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+    
+    public String getCartId() {
+        return cartId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+}
