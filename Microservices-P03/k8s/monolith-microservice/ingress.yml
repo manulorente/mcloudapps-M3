@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: booksapp-ingress-ms
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - host: booksapp
+    http:
+      paths:
+      - path: /api/v1/books
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: monolith
+            port:
+              name: monolith-port
+      - path: /api/v1/users/.*/comments
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: monolith
+            port:
+              name: monolith-port
+      - path: /api/v1/users/
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: users-microservice
+            port:
+              name: ms-port

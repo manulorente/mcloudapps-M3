@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: monolith
+  name: monolith
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monolith
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: monolith
+    spec:
+      containers:
+      - image: manloralm/monolith:latest
+        name: monolith
+        imagePullPolicy: Always
+        env:
+        - name: SPRING_DATASOURCE_USERNAME
+          value: root
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: pass
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysqldb/books?createDatabaseIfNotExist=true
+        - name: USERS_CLIENT_ENDPOINT
+          value: http://users-microservice:8080/api/v1
+        - name: USERS
+          value: USERS_IN_MICROSERVICE
+        ports:
+          - containerPort: 8080
+        securityContext:
+          allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monolith
+  labels:
+    app: monolith
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: monolith-port
+  selector:
+    app: monolith
+  type: LoadBalancer

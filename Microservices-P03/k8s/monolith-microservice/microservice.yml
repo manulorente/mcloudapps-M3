@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-microservice
+  labels:
+    app: users-microservice
+spec:
+  selector:
+    matchLabels:
+      app: users-microservice
+  strategy:
+    type: Recreate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: users-microservice
+    spec:
+      containers:
+      - image: manloralm/microservice:latest
+        name: users-microservice
+        imagePullPolicy: Always
+        env:
+        - name: MONOLITH_URL
+          value: http://monolith:8080
+        - name: SPRING_DATASOURCE_USERNAME
+          value: root
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: pass
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysqldb/users?createDatabaseIfNotExist=true
+        - name: USERS_COMMENTS_ENDPOINT
+          value: /api/v1/users/{userId}/comments
+        ports:
+          - containerPort: 8080
+        securityContext:
+          allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: users-microservice
+  name: users-microservice
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: ms-port
+  selector:
+    app: users-microservice
+  type: ClusterIP
+
