@@ -1,0 +1,129 @@
+services:
+  server:
+    image: mastercloudapps/server:v1.23
+    ports:
+      - 8080:8080
+    environment:
+      # Environment variables for MySQL connection
+      - QUARKUS_DATASOURCE_DB_KIND=mysql
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:mysql://mysql/eoloplantsDB
+      - QUARKUS_DATASOURCE_USERNAME=root
+      - QUARKUS_DATASOURCE_PASSWORD=password
+      # Environment variables for RabbitMQ connection
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=root
+      - RABBITMQ_PASSWORD=password
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  weatherservice:
+    image: mastercloudapps/weatherservice:v1.23
+    ports:
+      - 9090:9090
+    environment:
+      # Environment variables for configuring gRPC listening
+      - QUARKUS_GRPC_SERVER_HOST=weatherservice
+      - QUARKUS_GRPC_SERVER_PORT=9090
+    restart: on-failure
+
+  planner:
+    image: mastercloudapps/planner:v1.23
+    environment:
+      # Environment variables for TopoService connection
+      - TOPO_HOST=toposervice
+      - TOPO_PORT=8181
+      # Environment variables for WeatherService connection
+      - GRPC_CLIENT_WEATHERSERVER_ADDRESS=static://weatherservice:9090
+      # Environment variables for RabbitMQ connection
+      - SPRING_CLOUD_STREAM_RABBIT_BINDER_NODES=rabbitmq:5672
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=root
+      - SPRING_RABBITMQ_PASSWORD=password
+    depends_on:
+      - weatherservice
+      - toposervice
+      - rabbitmq
+    command: bash -c "
+      ./wait-for-it.sh weatherservice:9090 --
+      ./wait-for-it.sh toposervice:8181 --
+      ./wait-for-it.sh rabbitmq:5672 --
+      java -jar planner.jar"
+    restart: on-failure
+
+  toposervice:
+    image: mastercloudapps/toposervice:v1.23
+    ports:
+      - 8181:8181
+    environment:
+      # Environment variables for MongoDB connection
+      - SPRING_DATA_MONGODB_HOST=mongodb
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_DATABASE=topoDB
+      - SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE=admin
+      - SPRING_DATA_MONGODB_USERNAME=root
+      - SPRING_DATA_MONGODB_PASSWORD=password
+    depends_on:
+      - mongodb
+    restart: on-failure
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      # Environment variables for securing MySQL and creating default database
+      - MYSQL_DATABASE=eoloplantsDB
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./mysql_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-p$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    restart: always
+
+  mongodb:
+    image: mongo:5.0-focal
+    ports:
+      - 27017-27019:27017-27019
+    environment:
+      # Environment variables for securing MongoDB
+      - MONGO_INITDB_DATABASE=topoDB
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ./mongo_db:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      # Environment variables for securing RabbitMQ
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=password
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "check_port_connectivity" ]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    restart: always
