@@ -2,7 +2,7 @@
 
 Dockerize few microservices to operate together.  
 
-## Dev environment 
+## Dev environment
 
 ### Create docker-compose-dev.yml to configure MySQL, MongoDB and RabbitMQ  
 
