@@ -1,36 +1,51 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOCKER_USER=manloralm
+DOCKERHUB_NAME=manloralm
+IMAGE_TAG=v0.1
 
-# Build and push all services to Docker Hub
+# Build and push all services to DockerHub
 build_and_push() {
+
     service=$1
+
     if [ -z "$service" ]; then
-        echo "No service specified"
+        printf "No service specified\n"
         exit 1
     fi
-    # Service with Quarkus + JIB (native image doesn't work with Windows)    
-    if [ "$service" = "server" ] || [ "$service" = "weatherservice" ]; then
-        cd $service
-        mvn clean install -DskipTests
-        cd ..
+
+    # Compile and publish Server using Quarkus plugin for Docker
+    if [ "$service" = "server" ]; then
+        printf "Building ${service%%/} using Quarkus plugin for Docker\n"
+        mvn -f ./$service/pom.xml clean package -Dquarkus.container-image.build=true \ 
+            -Dquarkus.container-image.image.name=${DOCKERHUB_NAME}/${service}:${IMAGE_TAG}
+        docker tag $DOCKERHUB_NAME/$service:$IMAGE_TAG $DOCKERHUB_NAME/$service:$IMAGE_TAG
+        docker push $DOCKERHUB_NAME/$service:$IMAGE_TAG
     fi
-    # Service with Spring-Boot + JIB (Buildpacks doesn't work with my machine)
-    if [ "$service" = "toposervice" ]; then
-        cd $service
-        mvn compile jib:build -DskipTests -Dimage=$DOCKER_USER/$service:v0.1
-        cd ..
+
+    # Compile and publish WeatherService using multi-stage Dockerfile
+    if [ "$service" = "weatherservice" ]; then
+        printf "Building ${service%%/} using multi-stage Dockerfile\n"
+        docker build -t $DOCKERHUB_NAME/$service:$IMAGE_TAG ./$service
+        docker push $DOCKERHUB_NAME/$service:$IMAGE_TAG    
     fi
-    # Service with Spring-Boot + Multi-stage Dockerfile
+
+    # Compile and publish Planner using JIB plugin for Spring
     if [ "$service" = "planner" ]; then
-        cd $service
-        docker build -f Dockerfile -t $DOCKER_USER/$service .
-        docker push $DOCKER_USER/$service:latest
-        cd ..
+        printf "Building ${service%%/} using JIB plugin for Spring\n"
+        mvn -f ./$service/pom.xml compile jib:build -DskipTests -Dimage=$DOCKERHUB_NAME/$service:$IMAGE_TAG
+    fi
+
+    # Compile and publish TopoService using Buildpacks with GraalVM Native
+    if [ "$service" = "toposervice" ]; then
+        printf "Building ${service%%/} using Buildpacks with GraalVM Native\n"
+        mvn -f ./$service/pom.xml -Pnative spring-boot:build-image \
+            -Dspring-boot.build-image.imageName=${DOCKERHUB_NAME}/${service}:${IMAGE_TAG}
+        docker push ${DOCKERHUB_NAME}/${service}:${IMAGE_TAG}
     fi
 }
 
 for service in */; do
-    echo "Building ${service%%/}"
     build_and_push ${service%%/}
 done
+
+printf "All services built, pushed to DockerHub and deployed\n"
