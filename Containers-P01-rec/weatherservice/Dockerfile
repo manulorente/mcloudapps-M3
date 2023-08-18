@@ -1,7 +1,3 @@
-# Build Stage
-FROM maven:3.8.4-openjdk-17 AS build
-RUN mvn clean package -Pnative -Dquarkus.native.container-build=true
-
 # Run Stage
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.6
 WORKDIR /work/
