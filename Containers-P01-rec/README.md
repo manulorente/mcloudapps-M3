@@ -2,6 +2,8 @@
 
 Dockerize few microservices to operate together with GraalVM 17.0.8+9.1 and Maven 3.9.4
 
+[Video](https://drive.google.com/file/d/14eQm9iGEsF6P2vXCFCtKzBGzeLR3FdMY/view?usp=sharing)
+
 ## Dev environment
 
 ### Deploy auxiliary services MySQL, MongoDB and RabbitMQ  
@@ -80,7 +82,7 @@ docker-compose -f docker-compose-prod.yml up
 
 The app will be served in <http://localhost:8080>  
 
-## To remove all containers, images and generated data
+## Remove all containers, images and generated data
 
 ``` bash
 ./clean-all.sh
