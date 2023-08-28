@@ -3,8 +3,8 @@ networkPolicies:
 
 ingress:
   host: mastercloudapps
-  frontPath: 
-  topoPath: toposervice
+  frontPath: /
+  topoPath: /toposervice
 
 toposervice:
   image:
