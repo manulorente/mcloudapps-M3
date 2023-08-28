@@ -1,0 +1,64 @@
+# SERVER
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serverservice
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: serverservice
+  template:
+    metadata:
+      labels:
+        app: serverservice
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 3000
+        fsGroup: 2000    
+      restartPolicy: Always
+      containers:
+      - name: serverservice
+        image: {{ .Values.server.image.name }}:{{ .Values.server.image.version }}
+        securityContext:
+          allowPrivilegeEscalation: false        
+        ports:
+        - containerPort: 8080
+        env:
+        - name: QUARKUS_DATASOURCE_DB_KIND
+          value: mysql
+        - name: QUARKUS_DATASOURCE_JDBC_URL
+          value: jdbc:mysql://mysql/eoloplantsDB
+        - name: QUARKUS_DATASOURCE_USERNAME
+          value: root
+        - name: QUARKUS_DATASOURCE_PASSWORD
+          value: password      
+        - name: RABBITMQ_HOST
+          value: rabbitmq
+        - name: RABBITMQ_PORT
+          value: 5672
+        - name: RABBITMQ_USERNAME
+          value: root
+        - name: RABBITMQ_PASSWORD
+          value: password
+  replicas: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serverservice
+  labels:
+    app: serverservice
+spec:
+  selector:
+    app: serverservice
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: serverservice-port
+  type: NodePort
