@@ -27,6 +27,12 @@ minikube addons enable ingress
 ```
 
 ```sh
+git add . && git commit -m "New version" && git push
+```
+
+To install:
+
+```sh
 helm install eoloplanner httpd-web-server/EoloPlanner
 ```
 
@@ -34,24 +40,6 @@ To uninstall:
 
 ```sh
 helm uninstall eoloplanner && helm repo remove httpd-web-server && rm -rf ./EoloPlanner/charts
-```
-
-To view al resources in the cluster in real time:
-
-```sh
-watch -n 1 kubectl get pods,services,deployments
-```
-
-or just:
-
-```sh
-minikube dashboard
-```
-
-## Associate domain name to IP to get access
-
-```sh
-echo "`minikube ip` cluster-ip" | sudo tee --append /etc/hosts >/dev/null
 ```
 
 ## Verification
@@ -64,29 +52,4 @@ Any HTTP request will be handled properly. For example:
 
 ```sh
 curl --location --request GET 'http://cluster-ip/toposervice/api/topographicdetails/sevilla'
-```
-
-Deleting mysql and mongodb pods to force them to be recreated and demostrat persistence on volumes:
-
-```sh
-kubectl delete pod <mysql_pod_name>
-kubectl delete pod <mongodb_pod_name>
-```
-
-## Modifications to change user in containers to non-root
-
-```sh
-kubectl edit deployment <deployment_name>
-```
-
-## Build and push to DockerHub all services once modified  
-
-```sh
-./build.sh
-```
-
-or
-
-```sh
-./build.sh push
 ```
