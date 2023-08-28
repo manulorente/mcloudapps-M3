@@ -42,6 +42,12 @@ To uninstall:
 helm uninstall eoloplanner && helm repo remove httpd-web-server && rm -rf ./EoloPlanner/charts
 ```
 
+## Associate domain name to minikube
+
+```sh
+echo "`minikube ip` mastercloudapps" | sudo tee --append /etc/hosts >/dev/null
+```
+
 ## Verification
 
 The app will be accesible in [http://mastercloudapps](http://mastercloudapps)

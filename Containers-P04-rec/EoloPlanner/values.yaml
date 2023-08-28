@@ -1,5 +1,5 @@
 networkPolicies:
-  enabled: false
+  enabled: true
 
 ingress:
   host: mastercloudapps
@@ -20,7 +20,7 @@ rabbitmq:
   image:
     name: rabbitmq
     version: 3.11-management
-    
+
 toposervice:
   image:
     name: manloralm/toposervice
