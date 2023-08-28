@@ -15,16 +15,16 @@ spec:
       labels:
         app: serverservice
     spec:
-      #securityContext:
-      #  runAsUser: 1001
-      #  runAsGroup: 3000
-      #  fsGroup: 2000    
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 3000
+        fsGroup: 2000    
       restartPolicy: Always
       containers:
       - name: serverservice
         image: {{ .Values.server.image.name }}:{{ .Values.server.image.version }}
-        #securityContext:
-        #  allowPrivilegeEscalation: false        
+        securityContext:
+          allowPrivilegeEscalation: false        
         ports:
         - containerPort: 8080
         env:

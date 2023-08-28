@@ -15,16 +15,16 @@ spec:
       labels:
         app: weatherservice
     spec:
-      #securityContext:
-      #  runAsUser: 1001
-      #  runAsGroup: 3000
-      #  fsGroup: 2000    
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 3000
+        fsGroup: 2000    
       restartPolicy: Always
       containers:
       - name: weather
         image: {{ .Values.weatherservice.image.name }}:{{ .Values.weatherservice.image.version }}
-        #securityContext:
-        #  allowPrivilegeEscalation: false        
+        securityContext:
+          allowPrivilegeEscalation: false        
         env:
         - name: QUARKUS_GRPC_SERVER_HOST
           valueFrom:
