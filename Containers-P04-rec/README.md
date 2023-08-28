@@ -25,6 +25,7 @@ minikube addons enable ingress
 ```sh
  helm package ./EoloPlanner -d ./EoloPlanner/charts
  helm repo index ./EoloPlanner/charts --url https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
+ helm repo update
  git add ./EoloPlanner/charts/*
  git commit -m "New version"
  git push origin main
