@@ -57,4 +57,4 @@ spec:
     targetPort: 8181
     protocol: TCP
     name: toposervice-port
-  type: NodePort
+  type: ClusterIP
