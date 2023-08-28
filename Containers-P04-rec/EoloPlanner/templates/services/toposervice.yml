@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: topo
+  name: toposervice
 spec:
   strategy:
     type: Recreate
@@ -17,8 +17,8 @@ spec:
     spec:
       securityContext:
         runAsUser: 1001
-        runAsGroup: 3000
-        fsGroup: 2000    
+        #runAsGroup: 3000
+        #fsGroup: 2000    
       restartPolicy: Always
       containers:
       - name: toposervice

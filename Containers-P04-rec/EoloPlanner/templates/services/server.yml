@@ -17,8 +17,8 @@ spec:
     spec:
       securityContext:
         runAsUser: 1001
-        runAsGroup: 3000
-        fsGroup: 2000    
+        #runAsGroup: 3000
+        #fsGroup: 2000    
       restartPolicy: Always
       containers:
       - name: serverservice
@@ -44,6 +44,8 @@ spec:
           value: root
         - name: RABBITMQ_PASSWORD
           value: password
+        - name: RABBITMQ_URL
+          value: amqp://root:password@rabbitmq
   replicas: 1
 
 ---
