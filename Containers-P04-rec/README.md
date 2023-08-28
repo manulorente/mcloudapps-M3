@@ -23,12 +23,17 @@ minikube addons enable ingress
 ## Package and deploy. Need to commit changes first
 
 ```sh
- helm package ./EoloPlanner -d ./EoloPlanner/charts && helm repo index ./EoloPlanner/charts && helm repo update
- helm repo add httpd-web-server https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
+ helm package ./EoloPlanner -d ./EoloPlanner/charts && helm repo index ./EoloPlanner/charts && helm repo add httpd-web-server https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/ && helm repo update
 ```
 
 ```sh
 helm install eoloplanner httpd-web-server/EoloPlanner
+```
+
+To uninstall:
+
+```sh
+helm uninstall eoloplanner && helm repo remove httpd-web-server && rm -rf ./EoloPlanner/charts
 ```
 
 To view al resources in the cluster in real time:
