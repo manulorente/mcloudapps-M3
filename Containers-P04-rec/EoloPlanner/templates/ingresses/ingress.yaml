@@ -10,14 +10,14 @@ spec:
     http:
       paths:
       - path: {{ .Values.ingress.frontPath }}
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: serverservice
             port:
               number: 8080
       - path: {{ .Values.ingress.topoPath }}/(.+)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: toposervice
