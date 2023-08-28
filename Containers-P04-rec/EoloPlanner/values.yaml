@@ -2,8 +2,8 @@ networkPolicies:
   enabled: true
 
 ingress:
-  host: www.mastercloudapps.com
-  frontPath:
+  host: mastercloudapps
+  frontPath: /
   topoPath: /toposervice
 
 toposervice:

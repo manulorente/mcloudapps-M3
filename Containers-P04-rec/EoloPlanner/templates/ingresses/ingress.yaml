@@ -9,14 +9,14 @@ spec:
   - host: {{ .Values.ingress.host }}
     http:
       paths:
-      - path: {{ .Values.ingress.frontPath }}/(.*)
+      - path: {{ .Values.ingress.frontPath }}
         pathType: Prefix
         backend:
           service:
             name: serverservice
             port:
               number: 8080
-      - path: {{ .Values.ingress.topoPath }}/(.*)
+      - path: {{ .Values.ingress.topoPath }}/(.+)
         pathType: Prefix
         backend:
           service:
