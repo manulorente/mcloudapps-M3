@@ -3,25 +3,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: serverservice
+  name: server
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: serverservice
+      app: server
   template:
     metadata:
       labels:
-        app: serverservice
+        app: server
     spec:
       securityContext:
         runAsUser: 1001
-        #runAsGroup: 3000
-        #fsGroup: 2000    
+        runAsGroup: 3000
+        fsGroup: 2000    
       restartPolicy: Always
       containers:
-      - name: serverservice
+      - name: server
         image: {{ .Values.server.image.name }}:{{ .Values.server.image.version }}
         securityContext:
           allowPrivilegeEscalation: false        
@@ -52,15 +52,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: serverservice
+  name: server
   labels:
-    app: serverservice
+    app: server
 spec:
   selector:
-    app: serverservice
+    app: server
   ports:
   - port: 8080
     targetPort: 8080
     protocol: TCP
-    name: serverservice-port
+    name: server-port
   type: ClusterIP
