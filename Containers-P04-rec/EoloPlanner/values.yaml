@@ -6,6 +6,21 @@ ingress:
   frontPath: /
   topoPath: /toposervice
 
+mongodb:
+  image:
+    name: mongo
+    version: 5.0-focal
+
+mysql:
+  image:
+    name: mysql
+    version: 8.0
+
+rabbitmq:
+  image:
+    name: rabbitmq
+    version: 3.11-management
+    
 toposervice:
   image:
     name: manloralm/toposervice
@@ -25,18 +40,3 @@ planner:
   image:
     name: mastercloudapps/planner
     version: v1.23
-
-mongodb:
-  image:
-    name: mongo
-    version: 5.0-focal
-
-mysql:
-  image:
-    name: mysql
-    version: 8.0
-
-rabbitmq:
-  image:
-    name: rabbitmq
-    version: 3.11-management
