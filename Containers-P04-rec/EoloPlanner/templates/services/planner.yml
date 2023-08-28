@@ -31,7 +31,7 @@ spec:
         - name: TOPO_HOST
           value: toposervice
         - name: TOPO_PORT
-          value: 8181
+          value: "8181"
         - name: GRPC_CLIENT_WEATHERSERVER_ADDRESS
           value: static://weatherservice:9090
         - name: SPRING_CLOUD_STREAM_RABBIT_BINDER_NODES
@@ -39,7 +39,7 @@ spec:
         - name: SPRING_RABBITMQ_HOST
           value: rabbitmq
         - name: SPRING_RABBITMQ_PORT
-          value: 5672
+          value: "5672"
         - name: SPRING_RABBITMQ_USERNAME
           value: root
         - name: SPRING_RABBITMQ_PASSWORD

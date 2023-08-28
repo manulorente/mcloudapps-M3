@@ -31,7 +31,7 @@ spec:
             fieldRef:
               fieldPath: status.podIP
         - name: QUARKUS_GRPC_SERVER_PORT
-          value: 9090
+          value: "9090"
         ports:
         - containerPort: 9090
   replicas: 1
