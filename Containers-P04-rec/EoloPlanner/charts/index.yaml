@@ -3,7 +3,7 @@ entries:
   EoloPlanner:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-08-28T20:46:09.489442024+02:00"
+    created: "2023-08-28T20:48:46.167820331+02:00"
     description: A Helm chart for Kubernetes
     digest: 4b99149cec5ecb7bf46b74d1ff840973018bfd8bdf54c2896cf174bb56626a5b
     name: EoloPlanner
@@ -11,4 +11,4 @@ entries:
     urls:
     - https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/EoloPlanner-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-28T20:46:09.488674688+02:00"
+generated: "2023-08-28T20:48:46.16694482+02:00"
