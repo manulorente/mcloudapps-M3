@@ -3,8 +3,8 @@ networkPolicies:
 
 ingress:
   host: mastercloudapps
-  frontPath: /
-  topoPath: /toposervice
+  frontPath: 
+  topoPath: toposervice
 
 toposervice:
   image:
@@ -23,8 +23,8 @@ server:
 
 planner:
   image:
-    name: manloralm/planner
-    version: v0.1
+    name: mastercloudapps/planner
+    version: v1.23
 
 mongodb:
   image:

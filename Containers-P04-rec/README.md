@@ -20,15 +20,12 @@ Enable the ingress addon first to access the client app:
 minikube addons enable ingress
 ```
 
-## Package and deploy
+## Package and deploy. Need to commit changes first
 
 ```sh
  helm package ./EoloPlanner -d ./EoloPlanner/charts
  helm repo index ./EoloPlanner/charts
  helm repo add httpd-web-server https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
- git add ./EoloPlanner/charts/*
- git commit -m "New version"
- git push origin main
 ```
 
 ```sh
