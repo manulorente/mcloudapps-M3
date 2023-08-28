@@ -24,10 +24,14 @@ minikube addons enable ingress
 
 ```sh
  helm package ./EoloPlanner -d ./EoloPlanner/charts
+ helm repo index ./EoloPlanner/charts --url https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
+ git add ./EoloPlanner/charts/*
+ git commit -m "New version"
+ git push origin main
 ```
 
-``` sh
-helm repo index ./EoloPlanner/charts
+```sh
+helm install eoloplanner httpd-web-server/EoloPlanner
 ```
 
 To view al resources in the cluster in real time:
