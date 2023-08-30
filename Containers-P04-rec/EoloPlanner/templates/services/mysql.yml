@@ -24,8 +24,6 @@ spec:
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: password
-        - name: MYSQL_HOST
-          value: mysql
         - name: MYSQL_DATABASE
           value: eoloplantsDB
         volumeMounts:
