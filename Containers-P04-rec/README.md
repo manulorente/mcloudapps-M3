@@ -20,22 +20,10 @@ Enable the ingress addon first to access the client app:
 minikube addons enable ingress
 ```
 
-## Package and deploy. Need to commit changes first
+## Package and deploy the app
 
 ```sh
- helm package ./EoloPlanner -d ./EoloPlanner/charts && helm repo index ./EoloPlanner/charts --url https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
-```
-
-```sh
-helm repo add httpd-web-server https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
-```
-
-```sh
-git add . && git commit -m "New version" && git push
-```
-
-```sh
-helm repo update
+./deploy.sh
 ```
 
 To install:
@@ -66,5 +54,4 @@ Any HTTP request will be handled properly. For example:
 
 ```sh
 curl --location --request GET 'http://mastercloudapps/toposervice/api/topographicdetails/sevilla'
-curl --location --request GET 'http://192.168.58.2/toposervice/api/topographicdetails/sevilla'
 ```
