@@ -66,4 +66,5 @@ Any HTTP request will be handled properly. For example:
 
 ```sh
 curl --location --request GET 'http://mastercloudapps/toposervice/api/topographicdetails/sevilla'
+curl --location --request GET 'http://192.168.58.2/toposervice/api/topographicdetails/sevilla'
 ```
