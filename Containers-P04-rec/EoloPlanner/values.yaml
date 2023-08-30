@@ -14,7 +14,7 @@ mongodb:
 mysql:
   image:
     name: mysql
-    version: latest
+    version: 8.0
 
 rabbitmq:
   image:

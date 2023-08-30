@@ -2,10 +2,12 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: mysql-pv
+  labels:
+    type: local  
 spec:
   storageClassName: standard
   capacity:
-    storage: 3Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
