@@ -22,4 +22,4 @@ spec:
             name: toposervice
             port:
               number: 8181
-    host: {{ .Values.ingress.host }}
+    #host: {{ .Values.ingress.host }}
