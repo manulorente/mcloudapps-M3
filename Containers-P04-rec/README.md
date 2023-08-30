@@ -20,7 +20,9 @@ Enable the ingress addon first to access the client app:
 minikube addons enable ingress
 ```
 
-## Package and deploy the app
+## Running the app
+
+To package and publish the artifacts:
 
 ```sh
 ./deploy.sh
