@@ -1,5 +1,5 @@
 {{ if .Values.networkPolicies.enabled }}
-  {{ if .Values.networkPolicies.communication.planner-topo }}
+{{ if .Values.networkPolicies.communication.planner-topo }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -33,5 +33,5 @@ spec:
       ports:
       - protocol: TCP
         port: 8181
-  {{ end }}
+{{ end }}
 {{ end }}
