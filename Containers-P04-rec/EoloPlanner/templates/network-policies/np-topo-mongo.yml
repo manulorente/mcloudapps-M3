@@ -1,5 +1,5 @@
 {{ if .Values.networkPolicies.enabled }}
-{{ if .Values.networkPolicies.communication.topo-mongo }}
+{{ if .Values.networkPolicies.communication.topoMongo }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
