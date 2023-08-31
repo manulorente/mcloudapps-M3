@@ -1,37 +1,41 @@
 {{- if .Values.networkPolicies.enabled }}
- {{- if .Values.networkPolicies.communication.topo-mongo }}
-  apiVersion: networking.k8s.io/v1
-  kind: NetworkPolicy
-  metadata:
+{{- if .Values.networkPolicies.communication.topo-mongo }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: topo-to-mongo
-  spec:
+spec:
   podSelector:
-      matchLabels:
+    matchLabels:
       app: toposervice
   egress:
-      - to:
-          - podSelector:
-              matchLabels:
+    - to:
+        - podSelector:
+            matchLabels:
               app: mongodb
       ports:
-          - port: 27017
+        - port: 27017
           protocol: TCP
-  ---
-  apiVersion: networking.k8s.io/v1
-  kind: NetworkPolicy
-  metadata:
+{{- end }}
+{{- end }}
+---          
+{{- if .Values.networkPolicies.enabled }}
+{{- if .Values.networkPolicies.communication.topo-mongo }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: mongo-from-topo
-  spec:
+spec:
   podSelector:
-      matchLabels:
+    matchLabels:
       app: mongodb
   ingress:
-      - from:
-          - podSelector:
-              matchLabels:
+    - from:
+        - podSelector:
+            matchLabels:
               app: toposervice
       ports:
-          - protocol: TCP
+        - protocol: TCP
           port: 27017
- {{- end }}
+{{- end }}
 {{- end }}
