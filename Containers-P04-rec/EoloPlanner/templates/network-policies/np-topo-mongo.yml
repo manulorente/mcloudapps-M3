@@ -1,5 +1,3 @@
-{{- if and .Values.networkPolicies.enabled .Values.networkPolicies.communication.topo-mongo -}}
----
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -14,6 +12,22 @@ spec:
           matchLabels:
             app: mongodb
       ports:
-        - port: 27017
-          protocol: TCP
-{{- end -}}
+      - port: 27017
+        protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mongo-from-topo
+spec:
+  podSelector:
+    matchLabels:
+      app: mongodb
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: toposervice
+      ports:
+      - protocol: TCP
+        port: 27017
