@@ -25,13 +25,13 @@ minikube addons enable ingress
 To package and publish and install the helm chart:
 
 ```sh
-./deploy.sh
+./deploy.sh -i
 ```
 
 To uninstall:
 
 ```sh
-helm uninstall eoloplanner && helm repo remove httpd-web-server && rm -rf ./EoloPlanner/charts
+./deploy.sh -u
 ```
 
 ## Associate domain name to minikube
