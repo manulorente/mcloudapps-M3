@@ -1,4 +1,5 @@
 {{- if .Values.networkPolicies.enabled }}
+---
 {{- if .Values.networkPolicies.communication.topo-mongo }}
 ---
 apiVersion: networking.k8s.io/v1
