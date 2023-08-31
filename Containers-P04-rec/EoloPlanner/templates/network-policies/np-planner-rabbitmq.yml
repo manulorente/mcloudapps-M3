@@ -1,4 +1,5 @@
 {{ if .Values.networkPolicies.enabled }}
+  {{ if .Values.networkPolicies.communication.planner-rabbitmq }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -32,4 +33,5 @@ spec:
       ports:
       - protocol: TCP
         port: 5672
+  {{ end }}
 {{ end }}
