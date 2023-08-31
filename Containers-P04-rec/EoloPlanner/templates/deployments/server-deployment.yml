@@ -15,8 +15,6 @@ spec:
     spec:
       securityContext:
         runAsUser: 1001
-        runAsGroup: 3000
-        fsGroup: 2000    
       restartPolicy: Always
       containers:
       - name: serverservice
