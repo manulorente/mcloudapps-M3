@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: mongodb-pv
 spec:
-  storageClassName: standard
+  storageClassName: mongodb-class
   capacity:
     storage: 3Gi
   accessModes:
@@ -16,7 +16,7 @@ apiVersion: v1
 metadata:
   name: mongodb-pvc
 spec:
-  storageClassName: standard
+  storageClassName: mongodb-class
   accessModes:
     - ReadWriteOnce
   resources:

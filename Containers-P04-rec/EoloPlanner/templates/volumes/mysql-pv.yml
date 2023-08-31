@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: mysql-pvc
 spec:
-  storageClassName: standard
+  storageClassName: mysql-class
   accessModes:
     - ReadWriteOnce
   resources:
@@ -17,7 +17,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: standard
+  storageClassName: mysql-class
   capacity:
     storage: 3Gi
   accessModes:
