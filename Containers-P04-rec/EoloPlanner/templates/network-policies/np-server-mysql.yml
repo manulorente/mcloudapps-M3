@@ -1,4 +1,4 @@
-{{ if .Values.networkPolicies.enabled }}
+{{ if and (eq .Values.networkPolicies.enabled true) (eq .Values.networkPolicies.communication.server-mysql true) }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
