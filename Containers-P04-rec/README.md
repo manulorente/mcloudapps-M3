@@ -22,16 +22,10 @@ minikube addons enable ingress
 
 ## Running the app
 
-To package and publish the artifacts:
+To package and publish and install the helm chart:
 
 ```sh
 ./deploy.sh
-```
-
-To install:
-
-```sh
-helm install eoloplanner httpd-web-server/EoloPlanner
 ```
 
 To uninstall:
