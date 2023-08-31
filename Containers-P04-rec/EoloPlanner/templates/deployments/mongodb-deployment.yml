@@ -42,25 +42,3 @@ spec:
       - name: mongodb-persistent-storage
         persistentVolumeClaim:
           claimName: mongodb-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongodb
-spec:
-  selector:
-    app: mongodb
-  ports:
-  - port: 27017
-    targetPort: 27017
-    name: mongo-port-27017
-    protocol: TCP
-  - port: 27018
-    targetPort: 27018
-    name: mongo-port-27018
-    protocol: TCP
-  - port: 27019
-    targetPort: 27019
-    name: mongo-port-27019
-    protocol: TCP
-  type: ClusterIP
