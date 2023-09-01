@@ -12,13 +12,13 @@ function deploy() {
     # Package the Helm chart
     helm package ./$DEPLOYMENT_NAME -d ./$DEPLOYMENT_NAME/charts
 
+    # Create or update the Helm repository index
+    helm repo index ./$DEPLOYMENT_NAME/charts --url $URL/$DEPLOYMENT_NAME/charts --merge ./$DEPLOYMENT_NAME/charts/index.yaml
+
     # Commit and push changes to Git
     git add .
     git commit -m "New version"
     git push origin
-
-    # Create or update the Helm repository index
-    helm repo index ./$DEPLOYMENT_NAME/charts --url $URL/$DEPLOYMENT_NAME/charts --merge ./$DEPLOYMENT_NAME/charts/index.yaml
 
     # Add the Helm repository
     helm repo add $REPO_NAME $URL/$DEPLOYMENT_NAME/charts --force-update
@@ -27,7 +27,7 @@ function deploy() {
     helm repo update
 
     # Install the Helm chart
-    helm install --generatename $NAMESPACE $REPO_NAME/$DEPLOYMENT_NAME
+    helm install $NAMESPACE $REPO_NAME/$DEPLOYMENT_NAME
 }
 
 function uninstall() {
