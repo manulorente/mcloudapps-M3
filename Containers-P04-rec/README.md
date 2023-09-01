@@ -1,5 +1,11 @@
 # Containers-p04-rec
 
+## Links
+
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/eoloplanner-mlorente-jagarrido)](https://artifacthub.io/packages/search?repo=eoloplanner-mlorente-jagarrido)
+
+[GitHub repository](https://github.com/manulorente/mcloudapps-M3/tree/main/Containers-P04-rec)
+
 ## Setup
 
 Run docker:

@@ -1,4 +1,4 @@
-{{- if eq .Values.networkPolicies.enabled .Values.networkPolicies.communication.planner-topo -}}
+{{- if .Values.networkPolicies.enabled .Values.networkPolicies.communication.planner-topo -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
