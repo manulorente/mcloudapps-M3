@@ -13,7 +13,7 @@ function deploy() {
     helm package ./$DEPLOYMENT_NAME -d ./$DEPLOYMENT_NAME/charts
 
     # Create or update the Helm repository index
-    helm repo index ./$DEPLOYMENT_NAME/charts --url $URL --merge ./index.yaml
+    helm repo index ./$DEPLOYMENT_NAME/charts --url $URL
 
     # Add the Helm repository
     helm repo add $REPO_NAME $URL
