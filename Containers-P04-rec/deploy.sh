@@ -18,16 +18,10 @@ function deploy() {
     # Add the Helm repository
     helm repo add $REPO_NAME $URL
 
-    # Pause 5 seconds
-    sleep 5
-
     # Commit and push changes to Git
     git add .
     git commit -m "New version"
     git push origin
-
-    # Pause 5 seconds
-    sleep 5
 
     # Update Helm repositories
     helm repo update
