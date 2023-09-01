@@ -4,7 +4,7 @@ set -e
 
 export DEPLOYMENT_NAME=EoloPlanner
 export NAMESPACE=eoloplanner2
-export REPO_NAME=httpd-web-server
+export REPO_NAME=httpd-web-server2
 export URL=https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
 
 function deploy() {
