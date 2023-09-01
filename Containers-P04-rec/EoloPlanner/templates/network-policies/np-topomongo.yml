@@ -1,4 +1,4 @@
-#{{- if and (eq .Values.networkPolicies.enabled true) -}}
+{{ if and (eq .Values.networkPolicies.enabled true) (eq .Values.networkPolicies.communication.topo-mongo true) }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -32,4 +32,4 @@ spec:
       ports:
       - protocol: TCP
         port: 27017
-#{{- end -}}
+{{ end }}
