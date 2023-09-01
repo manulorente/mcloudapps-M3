@@ -35,8 +35,14 @@ function uninstall() {
     # Uninstall the Helm chart and remove the Helm repository
     helm uninstall $NAMESPACE
     helm repo remove $REPO_NAME
-    rm -rf ./$DEPLOYMENT_NAME/charts
 
+}
+
+function remove() {
+    
+        # Remove the Helm chart
+        rm -rf ./$DEPLOYMENT_NAME/charts
+    
 }
 
 if [ $# -eq 0 ]; then
@@ -44,7 +50,7 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-while getopts ":iu" opt; do
+while getopts ":iud" opt; do
     case $opt in
         i) # Deploy and Install Helm chart
             deploy
@@ -52,6 +58,9 @@ while getopts ":iu" opt; do
         u) # Uninstall Helm chart
             uninstall
             ;;
+        d) # Remove Helm chart
+            remove
+            ;;            
         \?) # Invalid option
             echo "Invalid option: -$OPTARG" >&2
             exit 1
