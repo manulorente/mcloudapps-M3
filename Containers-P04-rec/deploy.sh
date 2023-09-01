@@ -2,8 +2,8 @@
 
 set -e
 
-export DEPLOYMENT_NAME=EoloPlanner2
-export NAMESPACE=eoloplanner2
+export DEPLOYMENT_NAME=EoloPlanner
+export NAMESPACE=eoloplanner
 export REPO_NAME=httpd-web-server
 export URL=https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec
 
@@ -18,10 +18,10 @@ function deploy() {
     git push origin
 
     # Create or update the Helm repository index
-    helm repo index ./$DEPLOYMENT_NAME/charts --url $URL/$DEPLOYMENT_NAME/charts/ --merge ./$DEPLOYMENT_NAME/charts/index.yaml
+    helm repo index ./$DEPLOYMENT_NAME/charts --url $URL/$DEPLOYMENT_NAME/charts --merge ./$DEPLOYMENT_NAME/charts/index.yaml
 
     # Add the Helm repository
-    helm repo add $REPO_NAME $URL/$DEPLOYMENT_NAME/charts/ --force-update
+    helm repo add $REPO_NAME $URL/$DEPLOYMENT_NAME/charts --force-update
 
     # Update Helm repositories
     helm repo update
