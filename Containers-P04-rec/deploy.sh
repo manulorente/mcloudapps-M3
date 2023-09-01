@@ -3,8 +3,8 @@
 set -e
 
 export DEPLOYMENT_NAME=EoloPlanner
-export NAMESPACE=eoloplanner2
-export REPO_NAME=httpd-web-server2
+export NAMESPACE=eoloplanner
+export REPO_NAME=httpd-web-server
 export URL=https://raw.githubusercontent.com/manulorente/mcloudapps-M3/main/Containers-P04-rec/EoloPlanner/charts/
 
 function deploy() {
@@ -36,7 +36,7 @@ function uninstall() {
     helm uninstall $NAMESPACE
     helm repo remove $REPO_NAME
     rm -rf ./$DEPLOYMENT_NAME/charts
-    
+
 }
 
 if [ $# -eq 0 ]; then
