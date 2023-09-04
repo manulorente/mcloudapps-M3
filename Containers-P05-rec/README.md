@@ -1,8 +1,13 @@
-# Containers-p04
+# Containers-p05-rec
+
+## Links
+
+
+[GitHub repository](https://github.com/manulorente/mcloudapps-M3/tree/main/Containers-P05-rec)
 
 ## Deployment
 
-Run docker:
+RRun docker:
 
 ```sh
 sudo service docker start
@@ -11,13 +16,19 @@ sudo service docker start
 Execute minikube with virtualbox driver:
 
 ```sh
-minikube start --cni=cilium --memory=4096 --driver=virtualbox
+minikube start
 ```
 
 Enable the ingress addon first to access the client app:
 
 ```sh
 minikube addons enable ingress
+```
+
+Enable metrics-server addon to get metrics from pods:
+
+```sh
+minikube addons enable metrics-server
 ```
 
 Apply all the infrastructure resources and wait until everything is up:
@@ -67,16 +78,4 @@ kubectl delete pod <mongodb_pod_name>
 
 ```sh
 kubectl edit deployment <deployment_name>
-```
-
-## Build and push to DockerHub all services once modified  
-
-```sh
-./build.sh
-```
-
-or
-
-```sh
-./build.sh push
 ```
