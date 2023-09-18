@@ -1,0 +1,207 @@
+2023-09-19 00:04:03,984 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2023-09-19 00:04:03,997 INFO o.a.j.JMeter: Loading user properties from: /home/manu/apps/apache-jmeter-5.6.2/bin/user.properties
+2023-09-19 00:04:03,997 INFO o.a.j.JMeter: Loading system properties from: /home/manu/apps/apache-jmeter-5.6.2/bin/system.properties
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: Copyright (c) 1998-2023 The Apache Software Foundation
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: Version 5.6.2
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: java.version=17.0.8.1
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: os.name=Linux
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: os.arch=amd64
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: os.version=6.2.0-32-generic
+2023-09-19 00:04:04,001 INFO o.a.j.JMeter: file.encoding=UTF-8
+2023-09-19 00:04:04,002 INFO o.a.j.JMeter: java.awt.headless=true
+2023-09-19 00:04:04,002 INFO o.a.j.JMeter: Max memory     =1073741824
+2023-09-19 00:04:04,002 INFO o.a.j.JMeter: Available Processors =16
+2023-09-19 00:04:04,007 INFO o.a.j.JMeter: Default Locale=English (EN)
+2023-09-19 00:04:04,008 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2023-09-19 00:04:04,008 INFO o.a.j.JMeter: JMeterHome=/home/manu/apps/apache-jmeter-5.6.2
+2023-09-19 00:04:04,008 INFO o.a.j.JMeter: user.dir  =/home/manu/Projects/mcloudapps/mcloudapps-M3/Containers-P05-rec/webapp-stateless
+2023-09-19 00:04:04,008 INFO o.a.j.JMeter: PWD       =/home/manu/Projects/mcloudapps/mcloudapps-M3/Containers-P05-rec/webapp-stateless
+2023-09-19 00:04:04,008 INFO o.a.j.JMeter: IP: 127.0.1.1 Name: msi FullName: msi
+2023-09-19 00:04:04,019 INFO o.a.j.s.FileServer: Default base='/home/manu/Projects/mcloudapps/mcloudapps-M3/Containers-P05-rec/webapp-stateless'
+2023-09-19 00:04:04,020 INFO o.a.j.s.FileServer: Set new base='/home/manu/Projects/mcloudapps/mcloudapps-M3/Containers-P05-rec/webapp-stateless/jmeter'
+2023-09-19 00:04:04,143 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2023-09-19 00:04:04,160 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2023-09-19 00:04:04,162 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2023-09-19 00:04:04,164 INFO o.a.j.s.SaveService: Loading file: jmeter/success.jmx
+2023-09-19 00:04:04,206 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-09-19 00:04:04,207 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-09-19 00:04:04,207 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-09-19 00:04:04,207 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-09-19 00:04:04,207 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2023-09-19 00:04:04,207 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2023-09-19 00:04:04,215 INFO o.a.j.JMeter: Creating summariser <summary>
+2023-09-19 00:04:04,223 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2023-09-19 00:04:04,224 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2023-09-19 00:04:04,224 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2023-09-19 00:04:04,227 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2023-09-19 00:04:04,228 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2023-09-19 00:04:04,275 INFO o.a.j.JMeter: Running test (1695074644275)
+2023-09-19 00:04:04,287 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2023-09-19 00:04:04,287 INFO o.a.j.e.StandardJMeterEngine: Starting 50 threads for group Thread Group.
+2023-09-19 00:04:04,287 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2023-09-19 00:04:04,287 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=50 ramp-up=30 delayedStart=false
+2023-09-19 00:04:04,291 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2023-09-19 00:04:04,303 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = msi
+2023-09-19 00:04:04,304 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2023-09-19 00:04:04,304 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2023-09-19 00:04:04,307 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2023-09-19 00:04:04,308 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2023-09-19 00:04:04,308 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2023-09-19 00:04:04,308 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2023-09-19 00:04:04,308 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2023-09-19 00:04:04,367 INFO o.a.j.r.Summariser: summary +      1 in 00:00:00 =   10.9/s Avg:    22 Min:    22 Max:    22 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
+2023-09-19 00:04:04,386 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2023-09-19 00:04:04,386 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2023-09-19 00:04:04,889 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-2
+2023-09-19 00:04:04,923 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-2
+2023-09-19 00:04:04,923 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-2
+2023-09-19 00:04:05,488 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-3
+2023-09-19 00:04:05,510 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-3
+2023-09-19 00:04:05,510 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-3
+2023-09-19 00:04:06,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-4
+2023-09-19 00:04:06,127 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-4
+2023-09-19 00:04:06,128 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-4
+2023-09-19 00:04:06,689 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-5
+2023-09-19 00:04:06,728 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-5
+2023-09-19 00:04:06,729 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-5
+2023-09-19 00:04:07,288 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-6
+2023-09-19 00:04:07,316 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-6
+2023-09-19 00:04:07,316 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-6
+2023-09-19 00:04:07,888 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-7
+2023-09-19 00:04:07,913 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-7
+2023-09-19 00:04:07,913 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-7
+2023-09-19 00:04:08,489 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-8
+2023-09-19 00:04:08,523 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-8
+2023-09-19 00:04:08,523 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-8
+2023-09-19 00:04:09,087 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-9
+2023-09-19 00:04:09,113 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-9
+2023-09-19 00:04:09,113 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-9
+2023-09-19 00:04:09,688 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-10
+2023-09-19 00:04:09,719 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-10
+2023-09-19 00:04:09,720 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-10
+2023-09-19 00:04:10,289 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-11
+2023-09-19 00:04:10,323 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-11
+2023-09-19 00:04:10,323 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-11
+2023-09-19 00:04:10,887 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-12
+2023-09-19 00:04:10,912 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-12
+2023-09-19 00:04:10,912 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-12
+2023-09-19 00:04:11,487 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-13
+2023-09-19 00:04:11,521 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-13
+2023-09-19 00:04:11,521 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-13
+2023-09-19 00:04:12,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-14
+2023-09-19 00:04:12,113 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-14
+2023-09-19 00:04:12,113 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-14
+2023-09-19 00:04:12,689 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-15
+2023-09-19 00:04:12,720 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-15
+2023-09-19 00:04:12,720 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-15
+2023-09-19 00:04:13,287 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-16
+2023-09-19 00:04:13,323 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-16
+2023-09-19 00:04:13,323 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-16
+2023-09-19 00:04:13,887 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-17
+2023-09-19 00:04:13,923 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-17
+2023-09-19 00:04:13,923 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-17
+2023-09-19 00:04:14,487 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-18
+2023-09-19 00:04:14,512 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-18
+2023-09-19 00:04:14,512 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-18
+2023-09-19 00:04:15,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-19
+2023-09-19 00:04:15,106 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-19
+2023-09-19 00:04:15,106 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-19
+2023-09-19 00:04:15,687 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-20
+2023-09-19 00:04:15,714 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-20
+2023-09-19 00:04:15,714 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-20
+2023-09-19 00:04:16,288 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-21
+2023-09-19 00:04:16,316 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-21
+2023-09-19 00:04:16,316 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-21
+2023-09-19 00:04:16,888 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-22
+2023-09-19 00:04:16,912 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-22
+2023-09-19 00:04:16,912 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-22
+2023-09-19 00:04:17,488 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-23
+2023-09-19 00:04:17,514 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-23
+2023-09-19 00:04:17,514 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-23
+2023-09-19 00:04:18,087 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-24
+2023-09-19 00:04:18,113 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-24
+2023-09-19 00:04:18,113 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-24
+2023-09-19 00:04:18,687 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-25
+2023-09-19 00:04:18,709 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-25
+2023-09-19 00:04:18,709 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-25
+2023-09-19 00:04:19,287 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-26
+2023-09-19 00:04:19,314 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-26
+2023-09-19 00:04:19,314 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-26
+2023-09-19 00:04:19,888 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-27
+2023-09-19 00:04:19,917 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-27
+2023-09-19 00:04:19,917 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-27
+2023-09-19 00:04:20,487 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-28
+2023-09-19 00:04:20,514 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-28
+2023-09-19 00:04:20,515 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-28
+2023-09-19 00:04:21,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-29
+2023-09-19 00:04:21,109 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-29
+2023-09-19 00:04:21,109 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-29
+2023-09-19 00:04:21,687 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-30
+2023-09-19 00:04:21,716 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-30
+2023-09-19 00:04:21,716 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-30
+2023-09-19 00:04:22,288 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-31
+2023-09-19 00:04:22,321 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-31
+2023-09-19 00:04:22,322 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-31
+2023-09-19 00:04:22,888 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-32
+2023-09-19 00:04:22,909 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-32
+2023-09-19 00:04:22,909 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-32
+2023-09-19 00:04:23,488 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-33
+2023-09-19 00:04:23,516 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-33
+2023-09-19 00:04:23,516 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-33
+2023-09-19 00:04:24,087 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-34
+2023-09-19 00:04:24,120 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-34
+2023-09-19 00:04:24,121 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-34
+2023-09-19 00:04:24,688 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-35
+2023-09-19 00:04:24,720 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-35
+2023-09-19 00:04:24,721 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-35
+2023-09-19 00:04:25,289 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-36
+2023-09-19 00:04:25,322 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-36
+2023-09-19 00:04:25,322 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-36
+2023-09-19 00:04:25,887 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-37
+2023-09-19 00:04:25,919 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-37
+2023-09-19 00:04:25,919 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-37
+2023-09-19 00:04:26,488 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-38
+2023-09-19 00:04:26,522 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-38
+2023-09-19 00:04:26,523 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-38
+2023-09-19 00:04:27,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-39
+2023-09-19 00:04:27,109 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-39
+2023-09-19 00:04:27,109 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-39
+2023-09-19 00:04:27,688 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-40
+2023-09-19 00:04:27,721 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-40
+2023-09-19 00:04:27,721 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-40
+2023-09-19 00:04:28,287 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-41
+2023-09-19 00:04:28,314 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-41
+2023-09-19 00:04:28,314 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-41
+2023-09-19 00:04:28,887 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-42
+2023-09-19 00:04:28,918 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-42
+2023-09-19 00:04:28,918 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-42
+2023-09-19 00:04:29,487 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-43
+2023-09-19 00:04:29,520 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-43
+2023-09-19 00:04:29,520 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-43
+2023-09-19 00:04:30,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-44
+2023-09-19 00:04:30,099 INFO o.a.j.r.Summariser: summary +    215 in 00:00:26 =    8.4/s Avg:     4 Min:     2 Max:    11 Err:     0 (0.00%) Active: 1 Started: 44 Finished: 43
+2023-09-19 00:04:30,100 INFO o.a.j.r.Summariser: summary =    216 in 00:00:26 =    8.4/s Avg:     5 Min:     2 Max:    22 Err:     0 (0.00%)
+2023-09-19 00:04:30,113 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-44
+2023-09-19 00:04:30,113 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-44
+2023-09-19 00:04:30,688 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-45
+2023-09-19 00:04:30,717 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-45
+2023-09-19 00:04:30,717 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-45
+2023-09-19 00:04:31,287 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-46
+2023-09-19 00:04:31,322 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-46
+2023-09-19 00:04:31,322 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-46
+2023-09-19 00:04:31,887 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-47
+2023-09-19 00:04:31,918 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-47
+2023-09-19 00:04:31,918 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-47
+2023-09-19 00:04:32,487 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-48
+2023-09-19 00:04:32,510 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-48
+2023-09-19 00:04:32,510 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-48
+2023-09-19 00:04:33,088 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-49
+2023-09-19 00:04:33,121 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-49
+2023-09-19 00:04:33,122 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-49
+2023-09-19 00:04:33,689 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-50
+2023-09-19 00:04:33,713 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-50
+2023-09-19 00:04:33,713 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-50
+2023-09-19 00:04:33,714 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2023-09-19 00:04:33,714 INFO o.a.j.r.Summariser: summary +     34 in 00:00:04 =    9.4/s Avg:     4 Min:     2 Max:    11 Err:     0 (0.00%) Active: 0 Started: 50 Finished: 50
+2023-09-19 00:04:33,715 INFO o.a.j.r.Summariser: summary =    250 in 00:00:29 =    8.5/s Avg:     5 Min:     2 Max:    22 Err:     0 (0.00%)

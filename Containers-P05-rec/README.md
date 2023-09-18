@@ -1,81 +1,52 @@
-# Containers-p05-rec
+# Load testing and fault tolerance with Kubernetes
 
-## Links
+[Video]()
 
+## Setup
 
-[GitHub repository](https://github.com/manulorente/mcloudapps-M3/tree/main/Containers-P05-rec)
+### Start minikube
 
-## Deployment
-
-RRun docker:
-
-```sh
-sudo service docker start
-```
-
-Execute minikube with virtualbox driver:
-
-```sh
+``` bash
 minikube start
 ```
 
-Enable the ingress addon first to access the client app:
+## Load testing with JMeter
 
-```sh
-minikube addons enable ingress
+### Deploy the sample application
+
+``` bash
+kubectl apply -f webapp-stateless/k8s/webapp.yaml
 ```
 
-Enable metrics-server addon to get metrics from pods:
+### Get the service URL to run the load test
 
-```sh
-minikube addons enable metrics-server
+``` bash
+minikube service webapp --url
 ```
 
-Apply all the infrastructure resources and wait until everything is up:
+#### Scenario 1: 100% success rate - no chaos
 
-```sh
-kubectl apply -f infraestructure --recursive
+``` bash
+jmeter -n -t jmeter/success.jmx -l jmeter/success.jtl
 ```
 
-To view al resources in the cluster in real time:
+### Scale the application
 
-```sh
-watch -n 1 kubectl get pods,services,deployments
+``` bash
+kubectl scale deployment webapp --replicas=2
 ```
 
-or just:
+### Run jmeter
 
-```sh
-minikube dashboard
+``` bash
+jmter -n -t jmeter/chaos.jmx -l chaos.jtl
 ```
 
-## Associate domain name to IP to get access
+## Native development in Kubernetes with Okteto
 
-```sh
-echo "`minikube ip` cluster-ip" | sudo tee --append /etc/hosts >/dev/null
-```
+### Deploying to Kubernetes  
 
-## Verification
-
-The app will be accesible in [http://cluster-ip](http://cluster-ip)
-
-The REST API for the service **toposervice** is also working in [http://cluster-ip/toposervice](http://cluster-ip/toposervice).
-
-Any HTTP request will be handled properly. For example:
-
-```sh
-curl --location --request GET 'http://cluster-ip/toposervice/api/topographicdetails/sevilla'
-```
-
-Deleting mysql and mongodb pods to force them to be recreated and demostrat persistence on volumes:
-
-```sh
-kubectl delete pod <mysql_pod_name>
-kubectl delete pod <mongodb_pod_name>
-```
-
-## Modifications to change user in containers to non-root
-
-```sh
-kubectl edit deployment <deployment_name>
+``` bash
+kubectl apply -f infraestructure
+minikube service server-service
 ```
