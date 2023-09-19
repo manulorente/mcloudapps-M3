@@ -12,34 +12,58 @@ minikube start
 
 ## Load testing with JMeter
 
-### Deploy the sample application
+### Delete all custer resources
 
 ``` bash
-kubectl apply -f webapp-stateless/k8s/webapp.yaml
+kubectl delete all --all
 ```
 
-### Get the service URL to run the load test
+#### Scenario 1: 100% success rate - no chaos
+
+Deploy database and application with single pod
+
+``` bash
+kubectl apply -f webapp-stateless/k8s/db.yaml
+kubectl apply -f webapp-stateless/k8s/webapp-single-pod.yaml
+```
+
+Get the service URL to run the load test
 
 ``` bash
 minikube service webapp --url
 ```
 
-#### Scenario 1: 100% success rate - no chaos
-
 ``` bash
 jmeter -n -t jmeter/success.jmx -l jmeter/success.jtl
 ```
 
-### Scale the application
+#### Scenario 2: Single pod with errors because of chaos
+
+Apply chaos to remove one pod at a time
 
 ``` bash
-kubectl scale deployment webapp --replicas=2
+./webapp-stateless/chaos-pod-monkey.sh
 ```
 
-### Run jmeter
+#### Scenario 3: Two pods to reduce the error rate
+
+Apply chaos to remove one pod at a time
 
 ``` bash
-jmter -n -t jmeter/chaos.jmx -l chaos.jtl
+./webapp-stateless/chaos-pod-monkey.sh
+```
+
+Apply redundancy to the deployment
+
+``` bash
+kubectl delete -f webapp-stateless/k8s/webapp-single-pod.yaml
+kubectl apply -f webapp-stateless/k8s/webapp-redundant-pods.yaml
+```
+
+#### Scenario 4: Apply Istio to the deployment to reduce errors
+
+``` bash
+kubectl apply -f webapp-stateless/k8s/istio.yaml
 ```
 
 ## Native development in Kubernetes with Okteto
@@ -49,4 +73,10 @@ jmter -n -t jmeter/chaos.jmx -l chaos.jtl
 ``` bash
 kubectl apply -f infraestructure
 minikube service server-service
+```
+
+### Developing server-service in Kubernetes with Okteto
+
+``` bash
+okteto up
 ```
