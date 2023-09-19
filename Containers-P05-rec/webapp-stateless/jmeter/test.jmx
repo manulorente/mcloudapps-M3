@@ -14,7 +14,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="url" elementType="Argument">
             <stringProp name="Argument.name">url</stringProp>
-            <stringProp name="Argument.value">http://192.168.58.2:30400</stringProp>
+            <stringProp name="Argument.value">http://192.168.58.2:31443</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="contentType" elementType="Argument">
@@ -115,8 +115,8 @@
           <stringProp name="LoopController.loops">5</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">50</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">30</stringProp>
+        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">15</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
