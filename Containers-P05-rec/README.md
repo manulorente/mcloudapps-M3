@@ -107,11 +107,16 @@ jmeter -n -t webapp-stateless/jmeter/test.jmx -l webapp-stateless/jmeter/scenari
 
 ``` bash
 kubectl apply -f infraestructure
-minikube service server-service
 ```
 
-### Developing server-service in Kubernetes with Okteto
+### Exporting the service
 
 ``` bash
-okteto up
+minikube service serverservice
+```
+
+### Developing server service in Kubernetes with Okteto
+
+``` bash
+okteto up -f server/okteto.yml
 ```

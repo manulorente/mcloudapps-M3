@@ -1,15 +1,15 @@
-# TOPO
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: topo
+  name: toposervice
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
       app: toposervice
+  replicas: 1
   template:
     metadata:
       labels:
@@ -20,6 +20,7 @@ spec:
       - name: toposervice
         image: mastercloudapps/toposervice:v1.23
         env:
+        # Environment variables for MongoDB connection
         - name: SPRING_DATA_MONGODB_HOST
           value: mongodb
         - name: SPRING_DATA_MONGODB_PORT
@@ -34,8 +35,6 @@ spec:
           value: password
         ports:
         - containerPort: 8181
-  replicas: 1
-
 ---
 apiVersion: v1
 kind: Service
@@ -44,10 +43,11 @@ metadata:
   labels:
     app: toposervice
 spec:
-  selector:
-    app: toposervice
   ports:
   - port: 8181
     targetPort: 8181
-    name: topo-port
+    protocol: TCP
+    name: toposervice-port
+  selector:
+    app: toposervice
   type: ClusterIP

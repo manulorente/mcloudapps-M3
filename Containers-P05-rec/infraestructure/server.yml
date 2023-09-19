@@ -1,27 +1,26 @@
-# SERVER
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server
+  name: serverservice
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: server
+      app: serverservice
+  replicas: 1
   template:
     metadata:
       labels:
-        app: server
+        app: serverservice
     spec:
       restartPolicy: Always
       containers:
-      - name: server
+      - name: serverservice
         image: mastercloudapps/server:v1.23
-        ports:
-        - containerPort: 8080
         env:
+        # Environment variables for MySQL connection
         - name: QUARKUS_DATASOURCE_DB_KIND
           value: mysql
         - name: QUARKUS_DATASOURCE_JDBC_URL
@@ -30,28 +29,33 @@ spec:
           value: root
         - name: QUARKUS_DATASOURCE_PASSWORD
           value: password
+        - name: RABBITMQ_URL
+          value: amqp://root:password@rabbitmqservice
+        # Environment variables for RabbitMQ connection
         - name: RABBITMQ_HOST
-          value: rabbitmq
+          value: rabbitmqservice
         - name: RABBITMQ_PORT
           value: "5672"
         - name: RABBITMQ_USERNAME
           value: root
         - name: RABBITMQ_PASSWORD
           value: password
-  replicas: 1
-
+        ports:
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: server-service
+  name: serverservice
   labels:
-    app: server
+    app: serverservice
 spec:
-  selector:
-    app: server
   ports:
   - port: 8080
     targetPort: 8080
-    name: server-port
+    nodePort: 30000
+    protocol: TCP
+    name: serverservice-port
+  selector:
+    app: serverservice
   type: NodePort
