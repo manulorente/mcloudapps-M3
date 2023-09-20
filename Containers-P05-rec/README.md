@@ -1,6 +1,6 @@
 # Load testing and fault tolerance with Kubernetes
 
-[Video]()
+[Video](https://drive.google.com/file/d/1TRXuvGNSHK4naz1bBQO1xYj82KYF2GHt/view)
 
 ## Setup
 
@@ -55,17 +55,10 @@ jmeter -n -t webapp-stateless/jmeter/test.jmx -l webapp-stateless/jmeter/scenari
 
 #### Scenario 3: Two pods to reduce the error rate
 
-Apply redundancy to the deployment
+Apply redundancy to the deployment scaling to two pods
 
 ``` bash
-kubectl delete -f webapp-stateless/k8s/webapp-single-pod.yaml
-kubectl apply -f webapp-stateless/k8s/webapp-redundant-pods.yaml
-```
-
-Apply chaos to remove one pod every 10 seconds
-
-``` bash
-./webapp-stateless/chaos-pod-monkey.sh
+kubectl scale deployments/webapp --replicas=2
 ```
 
 Run load test
@@ -89,12 +82,6 @@ Apply Istio to the deployment
 kubectl apply -f webapp-stateless/k8s/istio.yaml
 ```
 
-Apply chaos to remove one pod every 10 seconds
-
-``` bash
-./webapp-stateless/chaos-pod-monkey.sh
-```
-
 Run load test
 
 ``` bash
@@ -106,7 +93,7 @@ jmeter -n -t webapp-stateless/jmeter/test.jmx -l webapp-stateless/jmeter/scenari
 ### Deploying to Kubernetes  
 
 ``` bash
-kubectl apply -f infraestructure
+kubectl apply -f server/k8s
 ```
 
 ### Exporting the service

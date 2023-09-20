@@ -31,3 +31,6 @@ spec:
         port:
           number: 8080
         host: webapp
+    retries:
+      attempts: 10
+      perTryTimeout: 1s
