@@ -10,39 +10,34 @@
 
 Run docker:
 
-```sh
+```bash
 sudo service docker start
 ```
 
-Execute minikube with virtualbox driver:
+Execute minikube and enable ingress addon:
 
-```sh
-minikube start
-```
+```bash
+minikube start addons=ingress
 
-Enable the ingress addon first to access the client app:
-
-```sh
-minikube addons enable ingress
 ```
 
 ## Running the app
 
 To package and publish and install the helm chart:
 
-```sh
+```bash
 ./deploy.sh -i
 ```
 
 To uninstall:
 
-```sh
+```bash
 ./deploy.sh -u
 ```
 
 ## Associate domain name to minikube
 
-```sh
+```bash
 echo "`minikube ip` mastercloudapps" | sudo tee --append /etc/hosts >/dev/null
 ```
 
@@ -54,6 +49,6 @@ The REST API for the service **toposervice** is also working in [http://mastercl
 
 Any HTTP request will be handled properly. For example:
 
-```sh
+```bash
 curl --location --request GET 'http://mastercloudapps/toposervice/api/topographicdetails/sevilla'
 ```
