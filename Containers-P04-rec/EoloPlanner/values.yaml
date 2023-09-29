@@ -1,6 +1,6 @@
 networkPolicies:
-  #enabled: true
-  #deny-all: true
+  enabled: true
+  deny-all: false
   planner-rabbitmq: true
   planner-weather: true
   planner-topo: true
@@ -30,18 +30,18 @@ rabbitmq:
 
 toposervice:
   image:
-    name: mastercloudapps/toposervice
-    version: v1.23
+    name: manloralm/toposervice
+    version: v0.1
 
 weatherservice:
   image:
-    name: mastercloudapps/weatherservice
-    version: v1.23
+    name: manloralm/weatherservice
+    version: v0.1
 
 server:
   image:
-    name: mastercloudapps/server
-    version: v1.0
+    name: manloralm/server
+    version: v0.1
 
 planner:
   image:
