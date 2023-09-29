@@ -1,12 +1,12 @@
 networkPolicies:
   deny-all: true
-  enabled: false
+  enabled: true
   planner-rabbitmq: true
   planner-weather: true
-  planner-topo: false
+  planner-topo: true
   server-rabbitmq: true
   server-mysql: true
-  topo-mongo: false
+  topo-mongo: true
 
 ingress:
   host: mastercloudapps
