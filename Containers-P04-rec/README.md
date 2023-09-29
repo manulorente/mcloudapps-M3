@@ -21,6 +21,25 @@ minikube start --memory 8192 --cpus 4 \
 --network-plugin=cni --cni=false
 ```
 
+Install cilium:
+
+```bash
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/1.14.2/cilium-linux-amd64.tar.gz{,.sha256sum}
+sha256sum --check cilium-linux-amd64.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
+rm cilium-linux-amd64.tar.gz{,.sha256sum}
+```
+
+```bash
+cilium install --version 1.14.2 --set kubeProxyReplacement=true --set ingressController.enabled=true --set ingressController.loadbalancerMode=dedicated
+```
+
+Verify cilium is running:
+
+```bash
+cilium status
+```
+
 Enable ingress, metrics-server, cilium and dashboard:
 
 ```bash
@@ -29,22 +48,6 @@ minikube addons enable ingress
 minikube addons enable metrics-server
 
 minikube addons enable dashboard
-```
-
-Install cilium:
-
-```bash
-curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/1.14.2/cilium-linux-amd64.tar.gz{,.sha256sum}
-sha256sum --check cilium-linux-amd64.tar.gz.sha256sum
-sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
-rm cilium-linux-amd64.tar.gz{,.sha256sum}
-cilium install
-```
-
-Verify cilium is running:
-
-```bash
-cilium status
 ```
 
 ## Running the app
