@@ -41,7 +41,7 @@ weatherservice:
 server:
   image:
     name: mastercloudapps/server
-    version: v2.23
+    version: v1.0
 
 planner:
   image:
