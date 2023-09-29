@@ -1,4 +1,4 @@
-{{ if and index .Values.networkPolicies "deny-all" .Values.networkPolicies.enabled }}
+{{ if index .Values.networkPolicies "deny-all" }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:

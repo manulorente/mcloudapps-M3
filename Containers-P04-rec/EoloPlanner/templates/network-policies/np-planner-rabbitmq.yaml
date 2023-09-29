@@ -1,4 +1,4 @@
-{{ if and index .Values.networkPolicies "planner-rabbitmq" .Values.networkPolicies.enabled }}
+{{ if and .Values.networkPolicies.enabled index .Values.networkPolicies "planner-rabbitmq" }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
