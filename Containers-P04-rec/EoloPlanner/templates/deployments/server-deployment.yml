@@ -13,11 +13,11 @@ spec:
       labels:
         app: serverservice
     spec:
-      #securityContext:
-      #  runAsUser: 1001
-      #  runAsGroup: 3000
-      #  fsGroup: 2000
-      #restartPolicy: Always
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 3000
+        fsGroup: 2000
+      restartPolicy: Always
       containers:
       - name: serverservice
         image: {{ .Values.server.image.name }}:{{ .Values.server.image.version }}

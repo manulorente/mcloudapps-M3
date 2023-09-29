@@ -13,11 +13,10 @@ spec:
       labels:
         app: planner
     spec:
-      #securityContext:
-      #  runAsUser: 1001
-      #  runAsGroup: 3000
-      #  fsGroup: 2000
-      #restartPolicy: Always
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 3000
+        fsGroup: 2000
       restartPolicy: Always
       containers:
       - name: planner
@@ -43,6 +42,6 @@ spec:
           value: root
         - name: SPRING_RABBITMQ_PASSWORD
           value: password
-        ports:
-          - containerPort: 9000          
+        #ports:
+        #  - containerPort: 9000          
   replicas: 1

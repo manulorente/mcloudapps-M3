@@ -14,11 +14,16 @@ Run docker:
 sudo service docker start
 ```
 
-Execute minikube and enable ingress addon:
+Execute minikube:
 
 ```bash
-minikube start addons=ingress
+minikube start
+```
 
+Enable the ingress addon first to access the client app:
+
+```bash
+minikube addons enable ingress
 ```
 
 ## Running the app

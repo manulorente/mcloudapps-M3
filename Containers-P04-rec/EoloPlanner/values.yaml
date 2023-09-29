@@ -30,18 +30,18 @@ rabbitmq:
 
 toposervice:
   image:
-    name: manloralm/toposervice
-    version: v0.1
+    name: mastercloudapps/toposervice
+    version: v1.23
 
 weatherservice:
   image:
-    name: manloralm/weatherservice
-    version: v0.1
+    name: mastercloudapps/weatherservice
+    version: v1.23
 
 server:
   image:
-    name: manloralm/server
-    version: v0.1
+    name: mastercloudapps/server
+    version: v1.23
 
 planner:
   image:
