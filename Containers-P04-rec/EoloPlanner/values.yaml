@@ -1,6 +1,6 @@
 networkPolicies:
   deny-all: true
-  enabled: false
+  enabled: true
   planner-rabbitmq: true
   planner-weather: true
   planner-topo: true
