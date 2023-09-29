@@ -13,11 +13,11 @@ spec:
       labels:
         app: toposervice
     spec:
-      securityContext:
-        runAsUser: 1001
-        runAsGroup: 3000
-        fsGroup: 2000
-      restartPolicy: Always
+      #securityContext:
+      #  runAsUser: 1001
+      #  runAsGroup: 3000
+      #  fsGroup: 2000
+      #restartPolicy: Always
       containers:
       - name: toposervice
         image: {{ .Values.toposervice.image.name }}:{{ .Values.toposervice.image.version }}        

@@ -13,10 +13,11 @@ spec:
       labels:
         app: planner
     spec:
-      securityContext:
-        runAsUser: 1001
-        runAsGroup: 3000
-        fsGroup: 2000
+      #securityContext:
+      #  runAsUser: 1001
+      #  runAsGroup: 3000
+      #  fsGroup: 2000
+      #restartPolicy: Always
       restartPolicy: Always
       containers:
       - name: planner
