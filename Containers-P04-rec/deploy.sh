@@ -35,6 +35,7 @@ function uninstall() {
     # Uninstall the Helm chart and remove the Helm repository
     helm repo remove $REPO_NAME
     helm uninstall $NAMESPACE
+    rm -rf ./$DEPLOYMENT_NAME/charts
 
 }
 
