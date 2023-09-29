@@ -14,16 +14,18 @@ Run docker:
 sudo service docker start
 ```
 
-Execute minikube:
+Run minikube with enough resources:
 
 ```bash
-minikube start
+minikube start --memory=12288 --cpus=4
 ```
 
-Enable the ingress addon first to access the client app:
+Enable ingress and metrics-server:
 
 ```bash
 minikube addons enable ingress
+
+minikube addons enable metrics-server
 ```
 
 ## Running the app
