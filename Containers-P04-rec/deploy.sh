@@ -17,7 +17,7 @@ function deploy() {
 
     # Commit and push changes to Git
     git add .
-    git commit -m "New version"
+    git commit -m "New $DEPLOYMENT_NAME version"
     git push origin
 
     # Add the Helm repository
