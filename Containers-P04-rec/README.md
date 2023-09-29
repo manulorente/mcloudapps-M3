@@ -14,18 +14,18 @@ Run docker:
 sudo service docker start
 ```
 
-Run minikube with enough resources:
+Run minikube with enough resources and cilium network:
 
 ```bash
-minikube start --memory=12288 --cpus=4
+minikube start --memory 8192 --cpus 4 --network-plugin=cni --cni=false
 ```
 
-Enable ingress and metrics-server:
+Enable ingress, metrics-server, cilium and dashboard:
 
 ```bash
 minikube addons enable ingress
-
 minikube addons enable metrics-server
+minikube addons enable dashboard
 ```
 
 ## Running the app

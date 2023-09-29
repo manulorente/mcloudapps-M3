@@ -1,5 +1,5 @@
 networkPolicies:
-  enabled: false
+  enabled: true
   deny-all: true
   planner-rabbitmq: true
   planner-weather: true
