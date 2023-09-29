@@ -25,8 +25,26 @@ Enable ingress, metrics-server, cilium and dashboard:
 
 ```bash
 minikube addons enable ingress
+
 minikube addons enable metrics-server
+
 minikube addons enable dashboard
+```
+
+Install cilium:
+
+```bash
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/1.14.2/cilium-linux-amd64.tar.gz{,.sha256sum}
+sha256sum --check cilium-linux-amd64.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
+rm cilium-linux-amd64.tar.gz{,.sha256sum}
+cilium install
+```
+
+Verify cilium is running:
+
+```bash
+cilium status
 ```
 
 ## Running the app
