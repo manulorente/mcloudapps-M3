@@ -3,7 +3,7 @@ networkPolicies:
   deny-all: true
   planner-rabbitmq: true
   planner-weather: true
-  planner-topo: true
+  planner-topo: false
   server-rabbitmq: true
   server-mysql: true
   topo-mongo: true
