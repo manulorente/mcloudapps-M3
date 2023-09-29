@@ -1,5 +1,5 @@
-{{ if .Values.networkPolicies.enabled}}
-{{ if index .Values.networkPolicies "deny-all" }}
+#{{ if .Values.networkPolicies.enabled}}
+#{{ if index .Values.networkPolicies "deny-all" }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -11,5 +11,5 @@ spec:
     - Egress
   ingress: []
   egress: []
-{{ end }}
-{{ end }}
+#{{ end }}
+#{{ end }}
