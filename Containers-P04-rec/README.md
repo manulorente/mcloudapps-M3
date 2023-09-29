@@ -14,10 +14,11 @@ Run docker:
 sudo service docker start
 ```
 
-Run minikube with enough resources and cilium network:
+Run minikube with enough resources and cilium network. Need to disable cni to avoid conflicts with cilium and have cilium installed.
 
 ```bash
-minikube start --memory 8192 --cpus 4 --network-plugin=cni --cni=false
+minikube start --memory 8192 --cpus 4 \
+--network-plugin=cni --cni=false
 ```
 
 Enable ingress, metrics-server, cilium and dashboard:
