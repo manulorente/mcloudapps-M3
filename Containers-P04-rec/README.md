@@ -17,13 +17,15 @@ sudo service docker start
 Run minikube with enough resources and cilium network. Need to disable cni to avoid conflicts with cilium and have cilium installed.
 
 ```bash
-minikube start --memory 8192 --cpus 4 --network-plugin=cni --cni=false
+minikube start --memory 10240 --cpus 4 --network-plugin=cni --cni=cilium \
+--addons=metrics-server \
+--addons=dashboard
 ```
 
-Install cilium:
+Install cilium if not installed:
 
 ```bash
-curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/1.14.2/cilium-linux-amd64.tar.gz{,.sha256sum}
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/v0.15.8/cilium-linux-amd64.tar.gz{,.sha256sum}
 sha256sum --check cilium-linux-amd64.tar.gz.sha256sum
 sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
 rm cilium-linux-amd64.tar.gz{,.sha256sum}
@@ -37,16 +39,6 @@ Verify cilium is running:
 
 ```bash
 cilium status
-```
-
-Enable ingress, metrics-server, cilium and dashboard:
-
-```bash
-minikube addons enable ingress
-
-minikube addons enable metrics-server
-
-minikube addons enable dashboard
 ```
 
 ## Running the app
