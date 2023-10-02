@@ -6,6 +6,8 @@
 
 [GitHub repository](https://github.com/manulorente/mcloudapps-M3/tree/main/Containers-P04-rec)
 
+[Demo](https://drive.google.com/file/d/1S99l9wLMxT_w4QqOew7zXWLjIbi7Re9H/view)
+
 ## Setup
 
 Run docker:
@@ -18,8 +20,14 @@ Run minikube with enough resources and cilium network. Need to disable cni to av
 
 ```bash
 minikube start --memory 10240 --cpus 4 --network-plugin=cni --cni=cilium
- \
---addons=dashboard
+
+```
+
+Enable dashboard and metrics:
+
+```bash
+minikube addons enable dashboard
+minikube addons enable metrics-server
 ```
 
 Install cilium if not installed:
