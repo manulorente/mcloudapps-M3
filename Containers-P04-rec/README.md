@@ -17,7 +17,7 @@ sudo service docker start
 Run minikube with enough resources and cilium network. Need to disable cni to avoid conflicts with cilium and have cilium installed.
 
 ```bash
-minikube start --memory 10240 --cpus 4 --network-plugin=cni --cni=calico 
+minikube start --memory 10240 --cpus 4 --network-plugin=cni --cni=cilium
  \
 --addons=dashboard
 ```
