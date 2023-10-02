@@ -6,7 +6,7 @@ networkPolicies:
   planner-topo: true
   server-rabbitmq: true
   server-mysql: true
-  topo-mongo: false
+  topo-mongo: true
 
 ingress:
   host: mastercloudapps
