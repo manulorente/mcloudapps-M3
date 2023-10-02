@@ -15,12 +15,8 @@ spec:
             app: mysql
       ports:
       - port: 3306
-        protocol: TCP
-{{- end }}
-{{- end }}        
+        protocol: TCP      
 ---
-{{- if .Values.networkPolicies.enabled }}
-{{- if index .Values.networkPolicies "server-mysql" }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
